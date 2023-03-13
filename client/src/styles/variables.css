@@ -1,0 +1,29 @@
+:root {
+    --bgPage: white;
+    --bgCommon: #f8f9fa;
+    --bgAccent: #212529;
+    --bgMenuItemActive: #e9ecef;
+    --bgButton: #0074d6;
+    --bgButtonActive: #f2f8fd;
+    --bgNotificationNegative: #fdf5f5;
+    --bgNotification: #f2f8fd;
+
+    --textCommon: #212529;
+    --textAccent: white;
+    --textNotificationNegative: #dc3545;
+    --textButtonActive: #0074d6;
+    --textButton: white;
+    --textSub: #6c757d;
+    --textDisabled: #adb5bd;
+
+    --focusInput: #0074d6;
+
+    --fzH1: 64px;
+    --fzH2: 32px;
+    --fzCommon: 16px;
+
+    --transitionCommon: 0.3s;
+
+    --brdrCommon: 6.5px;
+    --uiElementHeight: 52px;
+}
