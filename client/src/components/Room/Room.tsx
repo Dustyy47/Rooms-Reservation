@@ -1,6 +1,6 @@
 import { RoomData } from '@/models/Room';
 import Image from 'next/image';
-import locationIcon from '../../../assets/location.svg';
+import { LocationIcon } from '../SVG/Location';
 
 interface RoomProps {
   room: RoomData;
@@ -10,10 +10,12 @@ interface RoomProps {
 export function Room({ room, className }: RoomProps) {
   const { imageHref, name, adress, description } = room;
   return (
-    <div className={`flex justify-between  ${className}`}>
+    <div
+      className={`flex justify-between tablet:flex-col-reverse ${className}`}
+    >
       <Image
-        width={0}
-        height={0}
+        width={300}
+        height={300}
         className='mr-[2.08rem] min-h-[16rem] w-full max-w-[25rem] rounded-common bg-c-blue '
         src={imageHref}
         alt=''
@@ -24,13 +26,7 @@ export function Room({ room, className }: RoomProps) {
         </h2>
         <div className='flex'>
           <p className='mb-[0.83rem] mr-[0.2rem] font-bold'>{adress}</p>
-          <Image
-            alt='location'
-            src={locationIcon}
-            width='30'
-            height='30'
-            className='h-[1.25rem] w-[1.25rem]'
-          ></Image>
+          <LocationIcon />
         </div>
         <p>{description}</p>
       </div>

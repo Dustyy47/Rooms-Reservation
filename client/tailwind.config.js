@@ -12,6 +12,7 @@ module.exports = {
         c: {
           black: '#212529',
           grey: '#6C757D',
+          greyLight: '#ADB5BD',
           red: '#DC3545',
           blue: '#0074D6',
           green: '#35DC5A'
