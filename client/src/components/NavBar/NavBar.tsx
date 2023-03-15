@@ -1,4 +1,4 @@
-import { links } from '@/mock/NavLinks';
+import { navLinks } from '@/constants/Links';
 import { useRouter } from 'next/router';
 import { NavLink } from './NavLink';
 
@@ -15,7 +15,7 @@ export function NavBar() {
         СевГУ. Творческий цех
       </div>
       <ul>
-        {links.map((link, index) => (
+        {navLinks.map((link, index) => (
           <NavLink
             isActive={isNavLinkActive(link.to)}
             key={index}

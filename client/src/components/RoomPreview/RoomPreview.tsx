@@ -7,7 +7,7 @@ interface RoomProps {
   className?: string;
 }
 
-export function Room({ room, className }: RoomProps) {
+export function RoomPreview({ room, className }: RoomProps) {
   const { imageHref, name, adress, description } = room;
   return (
     <div

@@ -1,6 +1,26 @@
-import { NavLinkData } from '@/models/NavLink';
+import { NavLinkData } from '@/models/Link';
 
-export const links: NavLinkData[] = [
+export const routes = {
+  rooms: '/',
+  booked: '/booked',
+  notifications: '/notifications'
+};
+
+export const notificationsHistoryLinks = [
+  {
+    label: 'Новые',
+    to: routes.notifications
+  }
+];
+
+export const roomsHistoryLinks = [
+  {
+    label: 'Все помещения',
+    to: '/'
+  }
+];
+
+export const navLinks: NavLinkData[] = [
   {
     label: 'Все помещения',
     icon: (
@@ -18,7 +38,7 @@ export const links: NavLinkData[] = [
         />
       </svg>
     ),
-    to: '/'
+    to: routes.rooms
   },
   {
     label: 'Забронированные',
@@ -38,7 +58,7 @@ export const links: NavLinkData[] = [
         </g>
       </svg>
     ),
-    to: '/booked'
+    to: routes.booked
   },
   {
     label: 'Уведомления',
@@ -56,6 +76,6 @@ export const links: NavLinkData[] = [
         />
       </svg>
     ),
-    to: '/notifications'
+    to: routes.notifications
   }
 ];

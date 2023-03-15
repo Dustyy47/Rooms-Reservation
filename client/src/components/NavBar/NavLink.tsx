@@ -1,4 +1,4 @@
-import { NavLinkData } from '@/models/NavLink';
+import { NavLinkData } from '@/models/Link';
 import Link from 'next/link';
 
 interface NavLinkProps {
@@ -10,7 +10,7 @@ interface NavLinkProps {
 // Provide an icon as children
 export function NavLink({ navLink, className, isActive }: NavLinkProps) {
   const { label, icon } = navLink;
-  const activeClassName = isActive ? 'bg-c-blueGrey [&_path]:fill-black' : '';
+  const activeClassName = isActive ? 'bg-c-blueGrey [&_path]:fill-c-black' : '';
   return (
     <Link href={navLink.to}>
       <div

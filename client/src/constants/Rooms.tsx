@@ -2,6 +2,7 @@ import { RoomData } from '@/models/Room';
 
 export const rooms: RoomData[] = [
   {
+    id: 1,
     imageHref: '/images/glass_room.jpg',
     name: 'Зеркальный зал',
     adress: 'Гоголя, 14',
@@ -9,6 +10,7 @@ export const rooms: RoomData[] = [
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   },
   {
+    id: 2,
     imageHref: '/images/glass_room.jpg',
     name: 'Зеркальный зал',
     adress: 'Гоголя, 13',
@@ -16,6 +18,7 @@ export const rooms: RoomData[] = [
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   },
   {
+    id: 3,
     imageHref: '/images/glass_room.jpg',
     name: 'Зеркальный зал',
     adress: 'Гоголя, 12',
