@@ -1,6 +1,11 @@
 import RoomsAPI from '@/http/RoomsAPI';
 import { Status } from '@/models/HTTP';
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction
+} from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { RoomData } from './../../models/Room';
 import { RootState } from './../index';
@@ -15,35 +20,28 @@ const fetchRooms = createAsyncThunk('rooms/get', () => {
 interface RoomsState {
   roomsStatus: Status;
   rooms: RoomData[];
-  currentRoom: RoomData | null;
+  activeRoom: RoomData | null;
 }
 
 const initialState: RoomsState = {
   roomsStatus: Status.pending,
   rooms: [],
-  currentRoom: null
+  activeRoom: null
 };
 
 const roomsSlice = createSlice({
   name: 'rooms',
   initialState,
   reducers: {
-    setRooms(state) {
-      state.rooms = [
-        {
-          adress: 'test',
-          description: 'test',
-          imageHref: '/test',
-          name: 'test',
-          id: 1
-        }
-      ];
+    setActiveRoom(state, action: PayloadAction<RoomData>) {
+      state.activeRoom = action.payload;
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(hydrate, (state, action) => {
         state.rooms = action.payload.rooms.rooms;
+        state.activeRoom = action.payload.rooms.activeRoom;
       })
       .addCase(fetchRooms.pending, (state) => {
         state.roomsStatus = Status.pending;

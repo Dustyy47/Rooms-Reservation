@@ -11,7 +11,7 @@ export function RoomPreview({ room, className }: RoomProps) {
   const { imageHref, name, adress, description } = room;
   return (
     <div
-      className={`flex justify-between tablet:flex-col-reverse ${className}`}
+      className={`flex max-w-[48.9rem] justify-between tablet:flex-col-reverse ${className}`}
     >
       <Image
         width={300}
