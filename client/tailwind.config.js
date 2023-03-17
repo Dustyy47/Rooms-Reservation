@@ -31,7 +31,7 @@ module.exports = {
         }
       },
       height: {
-        uiItem: '3rem'
+        uiItem: '3.5rem'
       },
       borderRadius: {
         common: '0.4rem'
