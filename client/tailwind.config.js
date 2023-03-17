@@ -15,7 +15,8 @@ module.exports = {
           greyLight: '#ADB5BD',
           red: '#DC3545',
           blue: '#0074D6',
-          green: '#35DC5A'
+          green: '#35DC5A',
+          greyUltraLight: '#EDEFF2'
         }
       },
       backgroundColor: {
@@ -30,7 +31,7 @@ module.exports = {
         }
       },
       height: {
-        uiItem: '3rem'
+        uiItem: '3.5rem'
       },
       borderRadius: {
         common: '0.4rem'

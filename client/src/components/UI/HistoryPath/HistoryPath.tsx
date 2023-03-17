@@ -13,10 +13,10 @@ export function HistoryPath({ links, className }: HistoryPathProps) {
       className={`flex [&_*]:fill-c-grey [&_path]:fill-c-grey  [&_svg]:w-[1rem] ${className}`}
     >
       <HistoryPathItem link={links[0]} />
-      {links.slice(1).map((link) => (
+      {links.slice(1).map((link, index) => (
         <>
-          <ArrowIcon />
-          <HistoryPathItem link={link} />
+          <ArrowIcon key={'arrow--' + index} />
+          <HistoryPathItem key={'path--' + index} link={link} />
         </>
       ))}
     </div>

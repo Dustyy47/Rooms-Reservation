@@ -1,4 +1,4 @@
-import { RoomData } from '@/models/Room';
+import { OrderDates, RoomData } from '@/models/Room';
 
 export const rooms: RoomData[] = [
   {
@@ -26,3 +26,25 @@ export const rooms: RoomData[] = [
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   }
 ];
+
+export const orderedDates: OrderDates = {
+  '2023': {
+    Март: {
+      '20': {},
+      '21': {},
+      '22': {}
+    },
+    Апрель: {
+      '5': {},
+      '6': {},
+      '7': {}
+    }
+  },
+  '2024': {
+    Январь: {
+      '1': {},
+      '2': {},
+      '3': {}
+    }
+  }
+};

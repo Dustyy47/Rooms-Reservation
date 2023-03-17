@@ -1,25 +1,28 @@
+import { RoomPreview } from '@/components/RoomPreview/RoomPreview';
 import { Container } from '@/components/UI/Container/Container';
-import { roomsHistoryLinks } from '@/constants/Links';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { MultipleSelection } from '@/components/UI/MultipleSelection/MultipleSelection';
+import { orderedDates } from '@/constants/Rooms';
+import { useDatePicker } from '@/hooks/useDatePicker';
+import { useRoomHistoryLinks } from '@/hooks/useRoomHistoryLink';
+import { useAppSelector } from '@/store/hooks';
+
+// TODO i18n
 
 export default function Room() {
-  const router = useRouter();
-  router.query.id;
-
-  const historyLinks = useMemo(() => {
-    return [
-      ...roomsHistoryLinks,
-      {
-        label: `${router.query.id}`,
-        to: `/${router.query.id}`
-      }
-    ];
-  }, [router.query.id]);
+  const room = useAppSelector((state) => state.rooms.activeRoom);
+  const { datesSelections, handlePickDate } = useDatePicker(orderedDates);
+  const links = useRoomHistoryLinks();
 
   return (
-    <Container title={`${router.query.id}`} links={historyLinks}>
-      <div></div>
+    <Container title={`Бронирование помещения`} links={links}>
+      <>
+        {room && <RoomPreview room={room} />}
+        <MultipleSelection
+          onPick={handlePickDate}
+          label='Дата'
+          groups={datesSelections}
+        />
+      </>
     </Container>
   );
 }
