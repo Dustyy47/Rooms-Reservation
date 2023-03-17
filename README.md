@@ -26,5 +26,18 @@
       </a>
       <br>Tailwind
     </td>
+    </td>
+<td align="center" width="110" height="90">
+      <a href="#debabin-stack">
+        <img src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/359/full/expressjslogo.png" width="36" height="36" alt="Express" />
+      </a>
+      <br>Express
+    </td>
+    <td align="center" width="110" height="90">
+      <a href="#debabin-stack">
+        <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_a0b9e371c09d15b9a0b48ed84b31ed35/mongodb-atlas.png" width="36" height="36" alt="MongoDB" />
+      </a>
+      <br>MongoDB
+    </td>
   </tr> 
 </table>
