@@ -1,33 +1,32 @@
 import jwt from "jsonwebtoken";
+import AdminModel from "../models/AdminModel.js";
 
-// get userId from token and set it in request for next usages
-export const getUserId = (req, res, next) => {
-  try {
-    const token = (req.headers.authorization || "").split(" ")[1];
-    if (!token) {
-      req.userId = null;
+class AuthChecker {
+  tryAuth = (req, res, next) => {
+    try {
+      const token = (req.headers.authorization || "").split(" ")[1];
+      if (!token) {
+        res.status(401).json("Необходимо авторизироваться!");
+        next();
+        return;
+      }
+      const payload = jwt.verify(token, process.env.SECRET);
+      req.userId = payload.userId;
       next();
-      return;
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: e.message });
     }
-    const payload = jwt.verify(token, process.env.SECRET);
-    req.userId = payload.userId;
-    next();
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ message: e.message });
-  }
-};
+  };
 
-export const checkAuth = (req, res, next) => {
-  try {
-    if (!req.userId) {
-      res.status(400).json("Необходимо авторизироваться!");
+  checkAdmin = async (req, res, next) => {
+    this.tryAuth(req, res, next);
+    const currentUser = await AdminModel.findById(req.userId);
+    if (!currentUser) {
+      return res.status(401).json({ message: "Ошибка авторизации" });
     }
     next();
-  } catch (e) {
-    console.log(e);
-    res
-      .status(500)
-      .json({ message: "Что-то пошло не так, попробуйте позже..." });
-  }
-};
+  };
+}
+
+export default new AuthChecker();

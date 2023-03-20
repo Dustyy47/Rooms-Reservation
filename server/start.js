@@ -6,7 +6,8 @@ import http from "http";
 import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from "url";
-import { router } from "./routes/routes.js";
+import { adminRouter } from "./routes/admin/adminRoutes.js";
+import { router } from "./routes/public/routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -22,6 +23,7 @@ app.use(json());
 app.use(express.static(path.resolve(__dirname, "images")));
 app.use(fileUpload({}));
 app.use("/api", router);
+app.use("/admin", adminRouter);
 
 const startApp = async () => {
   try {
