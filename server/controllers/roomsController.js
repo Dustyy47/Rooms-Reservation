@@ -2,7 +2,13 @@ import OrderModel, { ORDER_STATUS } from "../models/OrderModel.js";
 import RoomModel from "../models/RoomModel.js";
 
 class RoomsController {
-  getAllRooms() {
+  async getAllRooms(req, res) {
+    try {
+      const rooms = await RoomModel.find();
+      res.json(rooms);
+    } catch (e) {
+      handleError(res, e);
+    }
     // const rooms = RoomModel;
   }
   getOrderedRooms() {}

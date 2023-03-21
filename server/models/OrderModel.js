@@ -14,8 +14,8 @@ const OrderSchema = new Schema({
   orderBy: { type: Schema.Types.ObjectId, ref: "User" },
   status: {
     type: String,
-    enum: [Object.values(ORDER_STATUS)],
-    default: UNRECOGNIZED,
+    enum: [...Object.values(ORDER_STATUS)],
+    default: ORDER_STATUS.UNRECOGNIZED,
   },
 });
 
