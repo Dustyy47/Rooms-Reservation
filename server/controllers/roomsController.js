@@ -11,20 +11,32 @@ class RoomsController {
     }
     // const rooms = RoomModel;
   }
-  getOrderedRooms() {}
+  async getOrderedRooms(req, res) {
+    try {
+      console.log("@ORDERED");
+      const userId = req.userId;
+      const orders = await OrderModel.find({ orderBy: userId }).populate(
+        "room"
+      );
+      res.json(orders);
+    } catch (e) {
+      handleError(res, e);
+    }
+  }
+
   getRoom() {}
 
   async orderRoom(req, res) {
     try {
       const { userId } = req.userId;
-      const { roomId: id } = req.params;
+      const { roomId } = req.params;
       const { start, end } = req.body;
-      const room = await RoomModel.findById(id);
+      const room = await RoomModel.findById(roomId);
       if (!room) {
         res.status(404).json({ message: "Такого помещения нет" });
         return;
       }
-      let orders = await OrderModel.find({ room: id, status: "accepted" });
+      let orders = await OrderModel.find({ room: roomId, status: "accepted" });
 
       // Проверка, есть ли заказы на время, пересекающееся с данным
       for (let order in orders) {
@@ -40,11 +52,12 @@ class RoomsController {
       }
 
       const order = await OrderModel.create({
-        room: id,
+        room: roomId,
         start,
         end,
         orderBy: userId,
       });
+      res.json(order);
     } catch (e) {
       console.log(e);
       res
