@@ -1,5 +1,9 @@
 import OrderModel, { ORDER_STATUS } from "../models/OrderModel.js";
 import RoomModel from "../models/RoomModel.js";
+import { handleError } from "../utils/handleError.js";
+
+// TODO ПРОДУМАТЬ СЛУЧАЙ, КОГДА ДВА ЧЕЛОВЕКА СДЕЛАЛИ ЗАКАЗ НА ОДНО И ТО ЖЕ ВРЕМЯ И ПРИ ЭТОМ НИ ОДИН ИЗ ИХ ЗАКАЗОВ ЕЩЁ НЕ БЫЛ ПРИНЯТ!!!
+// TODO ДОБАВИТЬ НЕДОСТУПНЫЕ ДАТЫ (ПРАЗДНИКИ И Т.П)
 
 class RoomsController {
   async getAllRooms(req, res) {
@@ -13,7 +17,6 @@ class RoomsController {
   }
   async getOrderedRooms(req, res) {
     try {
-      console.log("@ORDERED");
       const userId = req.userId;
       const orders = await OrderModel.find({ orderBy: userId }).populate(
         "room"
@@ -24,7 +27,22 @@ class RoomsController {
     }
   }
 
-  getRoom() {}
+  async getRoom(req, res) {
+    try {
+      const { id } = req.params;
+      const room = await RoomModel.findById(id);
+      const orders = await OrderModel.find({
+        room: id,
+        status: ORDER_STATUS.SUBMITED,
+      });
+      res.json({
+        room,
+        orders,
+      });
+    } catch (e) {
+      handleError(res, e);
+    }
+  }
 
   async orderRoom(req, res) {
     try {
@@ -59,10 +77,7 @@ class RoomsController {
       });
       res.json(order);
     } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 
@@ -81,10 +96,7 @@ class RoomsController {
       const newRoom = await RoomModel.create({ title, description, adress });
       res.json(newRoom);
     } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 
