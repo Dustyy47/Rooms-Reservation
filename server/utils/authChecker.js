@@ -6,7 +6,6 @@ class AuthChecker {
       const token = (req.headers.authorization || "").split(" ")[1];
       if (!token) {
         res.status(401).json("Необходимо авторизироваться!");
-        next();
         return;
       }
       const payload = jwt.verify(token, process.env.SECRET);

@@ -1,9 +1,26 @@
 import bcrypt from "bcrypt";
 import AdminModel from "../models/AdminModel.js";
-import { StudentModel, TeacherModel } from "../models/UserModel.js";
+import { StudentModel, TeacherModel, UserModel } from "../models/UserModel.js";
 import { createToken } from "../utils/createToken.js";
+import { handleError } from "../utils/handleError.js";
 
 class AuthController {
+  async getMe(req, res) {
+    try {
+      const userId = req.userId;
+      const candidate = await UserModel.findById(userId);
+      if (!candidate) {
+        return res.status(401).json({ message: "Ошибка авторизации" });
+      }
+      const { password, ...rest } = candidate._doc;
+      return res.json({
+        ...rest,
+      });
+    } catch (e) {
+      handleError(res, e);
+    }
+  }
+
   async registerStudent(req, res) {
     try {
       const { email, password, fullname, phone, course } = req.body;
@@ -21,10 +38,7 @@ class AuthController {
       const token = createToken(user._id, false);
       res.json(token);
     } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 
@@ -45,10 +59,7 @@ class AuthController {
       const token = createToken(user._id, false);
       res.json(token);
     } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 
@@ -74,10 +85,7 @@ class AuthController {
       const token = createToken(user._id, false);
       res.json(token);
     } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 
@@ -106,10 +114,7 @@ class AuthController {
         fullname: fullname,
       });
     } catch (e) {
-      console.log("@", e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 
@@ -127,10 +132,7 @@ class AuthController {
       const token = createToken(admin._id, true);
       res.json(token);
     } catch (e) {
-      console.log(e);
-      res
-        .status(500)
-        .json({ message: "Что-то пошло не так, попробуйте позже..." });
+      handleError(res, e);
     }
   }
 }
