@@ -1,4 +1,4 @@
-import { OrderDates } from '@/models/Room';
+import { OrderDates } from '@/types/Room';
 import { useMemo, useState } from 'react';
 
 export function useDatePicker(orderedDates: OrderDates) {

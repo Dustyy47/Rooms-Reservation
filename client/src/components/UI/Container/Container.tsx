@@ -1,4 +1,4 @@
-import { LinkData } from '@/models/Link';
+import { LinkData } from '@/types/Link';
 import { HistoryPath } from '../HistoryPath/HistoryPath';
 
 interface ContainerProps {

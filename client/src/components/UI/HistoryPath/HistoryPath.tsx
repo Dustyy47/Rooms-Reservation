@@ -1,5 +1,5 @@
 import { ArrowIcon } from '@/components/SVG/Arrow';
-import { LinkData } from '@/models/Link';
+import { LinkData } from '@/types/Link';
 import { HistoryPathItem } from './HistoryPathItem';
 
 interface HistoryPathProps {

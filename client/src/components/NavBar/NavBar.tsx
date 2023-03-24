@@ -1,9 +1,11 @@
 import { navLinks } from '@/constants/Links';
+import { useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
 import { NavLink } from './NavLink';
 
 export function NavBar() {
   const router = useRouter();
+  const { user } = useAppSelector((state) => state.user);
 
   function isNavLinkActive(to: string) {
     return to === router.pathname;
@@ -24,6 +26,7 @@ export function NavBar() {
           />
         ))}
       </ul>
+      <div>{user?.fullname}</div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import { NavLinkData } from '@/models/Link';
+import { NavLinkData } from '@/types/Link';
 
 export const routes = {
-  rooms: '/',
+  rooms: '/rooms',
   booked: '/booked',
   notifications: '/notifications'
 };
@@ -16,7 +16,7 @@ export const notificationsHistoryLinks = [
 export const roomsHistoryLinks = [
   {
     label: 'Все помещения',
-    to: '/'
+    to: '/rooms'
   }
 ];
 

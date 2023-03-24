@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import { roomReducer } from './slices/roomsSlice';
+import { usersReducer } from './slices/userSlice';
 
 const store = configureStore({
   reducer: {
-    rooms: roomReducer
+    rooms: roomReducer,
+    user: usersReducer
   }
 });
 
