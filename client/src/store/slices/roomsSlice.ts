@@ -1,5 +1,5 @@
 import RoomsAPI from '@/http/RoomsAPI';
-import { Status } from '@/models/HTTP';
+import { Status } from '@/types/HTTP';
 import {
   createAction,
   createAsyncThunk,
@@ -7,7 +7,7 @@ import {
   PayloadAction
 } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { RoomData } from './../../models/Room';
+import { RoomData } from '../../types/Room';
 import { RootState } from './../index';
 
 export const hydrate = createAction<RootState>(HYDRATE);

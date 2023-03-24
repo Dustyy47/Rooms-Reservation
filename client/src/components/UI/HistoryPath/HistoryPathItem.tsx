@@ -1,4 +1,4 @@
-import { LinkData } from '@/models/Link';
+import { LinkData } from '@/types/Link';
 import Link from 'next/link';
 
 export function HistoryPathItem({ link }: { link: LinkData }) {

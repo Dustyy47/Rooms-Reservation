@@ -1,4 +1,4 @@
-import { NavLinkData } from '@/models/Link';
+import { NavLinkData } from '@/types/Link';
 import Link from 'next/link';
 
 interface NavLinkProps {

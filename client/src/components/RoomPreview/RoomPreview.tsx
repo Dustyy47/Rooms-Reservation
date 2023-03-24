@@ -1,4 +1,4 @@
-import { RoomData } from '@/models/Room';
+import { RoomData } from '@/types/Room';
 import Image from 'next/image';
 import { LocationIcon } from '../SVG/Location';
 

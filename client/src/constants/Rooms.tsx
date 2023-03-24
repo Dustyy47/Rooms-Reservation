@@ -1,4 +1,4 @@
-import { OrderDates, RoomData } from '@/models/Room';
+import { OrderDates, RoomData } from '@/types/Room';
 
 export const rooms: RoomData[] = [
   {
