@@ -1,10 +1,8 @@
 import { NavBar } from '@/components/NavBar/NavBar';
+import { useAuth } from '@/hooks/useAuth';
 import { wrapper } from '@/store';
-import { useAppDispatch } from '@/store/hooks';
-import { usersActions } from '@/store/slices/userSlice';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 
 export default function App({ Component, ...rest }: AppProps) {
@@ -21,15 +19,11 @@ export function AppWithRedux({
   Component,
   pageProps
 }: Pick<AppProps, 'Component'> & { pageProps: any }) {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(usersActions.fetchUser());
-  }, []);
+  const { isAuth } = useAuth();
 
   return (
     <div className='flex'>
-      <NavBar />
+      {isAuth && <NavBar />}
       <Component {...pageProps} />
     </div>
   );
