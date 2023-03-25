@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { $authHost } from '.';
 import { StudentData, TeacherData } from './../types/User';
 class UserAPI {
@@ -6,7 +7,8 @@ class UserAPI {
       const data = await $authHost.get<StudentData | TeacherData>('/auth/me');
       return data.data;
     } catch (e) {
-      console.log(e);
+      const error = e as AxiosError;
+      console.log(error.message);
       return null;
     }
   }

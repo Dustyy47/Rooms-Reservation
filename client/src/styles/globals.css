@@ -7,7 +7,6 @@
 * {
   font-family: 'Nunito', sans-serif;
   box-sizing: border-box;
-  font-size: 18px;
   padding: 0;
   margin: 0;
   transition: 0.3s;
@@ -19,7 +18,7 @@ body {
   background: white;
   max-width: 100vw;
   overflow-x: hidden;
-  font-size: 15.6px;
+  font-size: 18px;
 }
 
 a {
@@ -34,6 +33,11 @@ h1 {
 
 h2 {
   font-size: 1.33rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1rem;
   font-weight: bold;
 }
 
