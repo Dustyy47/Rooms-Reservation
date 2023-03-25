@@ -5,7 +5,7 @@ import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 export default function Login() {
   return (
     <div className='flex h-screen w-full items-center justify-center'>
-      <AuthForm onSubmit={() => {}} isLoginForm>
+      <AuthForm onSubmit={() => {}} isLoginForm={false}>
         <InputsGroup label='Почта'>
           <Input placeholder='Введите почту' />
         </InputsGroup>

@@ -14,7 +14,6 @@ export const useAuth = () => {
 
   useEffect(() => {
     if (!user) {
-      console.log('@PUSH AUTH');
       router.push('/auth/login');
     } else {
       router.push('/rooms/');
