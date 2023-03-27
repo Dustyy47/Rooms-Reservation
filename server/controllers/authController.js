@@ -44,6 +44,7 @@ class AuthController {
 
   async registerTeacher(req, res) {
     try {
+      console.log("@", req.body);
       const { email, password, fullname, phone, speciality } = req.body;
       const candidate = await TeacherModel.findOne({ email });
       if (candidate)

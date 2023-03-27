@@ -2,6 +2,7 @@ import { AuthForm } from '@/components/Forms/AuthForm';
 import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { RadioGroup, RadioVariant } from '@/components/UI/Radio/RadioGroup';
+import { useAuthAPI } from '@/hooks/api/useAuthApi';
 import { useForm } from '@/hooks/useForm';
 import { useCallback, useState } from 'react';
 
@@ -16,11 +17,11 @@ const radioVariants: RadioVariant[] = [
   }
 ];
 
-export default function Login() {
+export default function Registration() {
   const [activeVariant, setActiveVariant] = useState<RadioVariant>(
     radioVariants[0]
   );
-  const { change, isCorrect } = useForm([
+  const { change, isCorrect, fields } = useForm([
     'surname',
     'name',
     'patronymic',
@@ -30,6 +31,20 @@ export default function Login() {
     'password',
     'passwordConfirm'
   ]);
+  const { register, error } = useAuthAPI();
+
+  const handleSubmit = () => {
+    register({
+      fullname: `${fields.name} ${fields.name} ${fields.patronymic}`,
+      email: fields.email,
+      phone: fields.phone,
+      speciality:
+        activeVariant.name === 'Сотрудник' ? fields.specialField : undefined,
+      course:
+        activeVariant.name === 'Студент' ? fields.specialField : undefined,
+      password: fields.password
+    });
+  };
 
   const handleChangeStatus = useCallback((variantId: number) => {
     setActiveVariant(
@@ -42,7 +57,7 @@ export default function Login() {
     <AuthForm
       isCorrect={isCorrect()}
       classNames={{ form: 'w-[22%]' }}
-      onSubmit={() => {}}
+      onSubmit={handleSubmit}
       isLoginForm={false}
     >
       <InputsGroup label='ФИО'>

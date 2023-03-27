@@ -16,7 +16,6 @@ export function useForm(fieldsNames: string[]) {
     },
     isCorrect() {
       for (let v in fields) {
-        console.log('@', v, fields);
         if (!fields[v]) return false;
       }
       return true;
