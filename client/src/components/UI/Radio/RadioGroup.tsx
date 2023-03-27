@@ -19,9 +19,9 @@ export function RadioGroup({
   onChange
 }: RadioGroupProps) {
   return (
-    <div className='flex w-full flex-col'>
+    <div className='flex w-full justify-between'>
       {variants.map((variant) => (
-        <div className='w-full [&+&]:mt-[0.41rem]'>
+        <div className='w-[48%]'>
           <RadioButton
             key={group + variant.id}
             name={group}

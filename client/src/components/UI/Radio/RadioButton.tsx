@@ -13,7 +13,7 @@ export function RadioButton({ children, ...rest }: RadioButtonProps) {
       />
       <label
         htmlFor={rest.id}
-        className='flex h-uiItem w-full cursor-pointer items-center justify-center rounded-common  bg-c-blue text-c-blue duration-[0ms] peer-checked:bg-c-blueAccent peer-checked:text-white peer-focus:shadow-outlineRadio'
+        className='flex h-uiItem w-full cursor-pointer items-center justify-center rounded-common  bg-c-blue text-c-blue shadow-outlineHidden peer-checked:bg-c-blueAccent peer-checked:text-white peer-focus:shadow-outlineRadio'
       >
         {children}
       </label>

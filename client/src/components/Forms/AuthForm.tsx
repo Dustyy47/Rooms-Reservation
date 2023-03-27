@@ -5,17 +5,19 @@ import Button from '../UI/Button/Button';
 interface AuthFormProps {
   children: ReactNode;
   isLoginForm: boolean;
+  isCorrect: boolean;
+  onSubmit: () => any;
   classNames?: {
     form: string;
   };
-  onSubmit: () => any;
 }
 
 export function AuthForm({
   children,
   isLoginForm,
   onSubmit,
-  classNames
+  classNames,
+  isCorrect
 }: AuthFormProps) {
   const labels = {
     title: isLoginForm ? 'Авторизация' : 'Регистрация',
@@ -33,7 +35,11 @@ export function AuthForm({
           {labels.title}
         </h2>
         <div>{children}</div>
-        <Button onClick={onSubmit} className='mb-[1.04rem] w-full'>
+        <Button
+          disabled={!isCorrect}
+          onClick={onSubmit}
+          className='mb-[1.04rem] w-full'
+        >
           {labels.submit}
         </Button>
         <div className='text-center'>

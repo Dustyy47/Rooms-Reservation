@@ -38,7 +38,7 @@ module.exports = {
       },
       boxShadow: {
         outline: '0 0 0 2px #0074D6',
-        outlineRadio: '0 0 0 2px #212529',
+        outlineRadio: '0 0 0 2px #004885',
         outlineHidden: '0 0 0 2px transparent'
       }
     }

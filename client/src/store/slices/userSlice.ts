@@ -1,7 +1,6 @@
 import UserAPI from '@/http/UserAPI';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UserData } from './../../types/User';
-import { hydrate } from './roomsSlice';
 
 const fetchUser = createAsyncThunk('users/getMe', async () => {
   const user = await UserAPI.fetchUser();
@@ -21,13 +20,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(hydrate, (state, action) => {
-        //state.user = action.payload.user.user;
-      })
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-      });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.user = action.payload || null;
+    });
   }
 });
 
