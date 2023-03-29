@@ -54,7 +54,7 @@ export default function Registration() {
     );
   }, []);
 
-  const { submit, error } = useRegister();
+  const { submit, error: APIError } = useRegister();
 
   return (
     <AuthForm
@@ -123,6 +123,7 @@ export default function Registration() {
           {errors.passwordConfirm?.type == 'validate' && 'Пароли не совпадают'}
           {isAnyFieldEmpty<RegistrationFormFields>(errors) &&
             'Все поля должны быть заполнены!'}
+          {APIError as string}
         </p>
       </InputsGroup>
     </AuthForm>

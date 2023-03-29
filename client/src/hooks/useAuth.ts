@@ -20,5 +20,10 @@ export const useAuth = () => {
     }
   }, [user]);
 
-  return { isAuth: !!user };
+  function exit() {
+    localStorage.removeItem('token');
+    dispatch(usersActions.fetchUser());
+  }
+
+  return { isAuth: !!user,exit };
 };

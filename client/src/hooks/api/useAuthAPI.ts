@@ -17,7 +17,9 @@ export function useRegister() {
       localStorage.setItem('token', token);
       dispatch(usersActions.fetchUser());
     } catch (e) {
-      setError(e as string);
+      const error = e as Error;
+      console.log(error.message);
+      setError(error.message);
     }
   }
 

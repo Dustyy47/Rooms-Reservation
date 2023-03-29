@@ -1,24 +1,15 @@
 import { AuthForm } from '@/components/Forms/AuthForm';
 import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
-import { useForm1 } from '@/hooks/useForm';
 
 export default function Login() {
-  const { change, isCorrect } = useForm1(['email', 'password']);
-
   return (
-    <AuthForm isCorrect={isCorrect()} onSubmit={() => {}} isLoginForm>
+    <AuthForm isCorrect={false} onSubmit={() => {}} isLoginForm>
       <InputsGroup label='Почта'>
-        <Input
-          onChange={(v) => change('email', v)}
-          placeholder='Введите почту'
-        />
+        <Input placeholder='Введите почту' />
       </InputsGroup>
       <InputsGroup label='Пароль'>
-        <Input
-          onChange={(v) => change('password', v)}
-          placeholder='Введите пароль'
-        />
+        <Input placeholder='Введите пароль' />
       </InputsGroup>
     </AuthForm>
   );

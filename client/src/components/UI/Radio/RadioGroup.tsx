@@ -21,9 +21,8 @@ export function RadioGroup({
   return (
     <div className='flex w-full justify-between'>
       {variants.map((variant) => (
-        <div className='w-[48%]'>
+        <div key={group + variant.id} className='w-[48%]'>
           <RadioButton
-            key={group + variant.id}
             name={group}
             id={group + variant.id}
             checked={checkedVariant.id === variant.id}

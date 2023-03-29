@@ -1,4 +1,5 @@
 import { navLinks } from '@/constants/Links';
+import { useAuth } from '@/hooks/useAuth';
 import { useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
 import { NavLink } from './NavLink';
@@ -10,6 +11,8 @@ export function NavBar() {
   function isNavLinkActive(to: string) {
     return to === router.pathname;
   }
+
+  const { exit } = useAuth();
 
   return (
     <div className='h-[100vh] w-[20%] bg-c-grey p-[0.83rem]'>
@@ -27,6 +30,7 @@ export function NavBar() {
         ))}
       </ul>
       <div>{user?.fullname}</div>
+      <button onClick={exit}>Exit</button>
     </div>
   );
 }
