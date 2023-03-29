@@ -5,8 +5,9 @@ import Button from '../UI/Button/Button';
 interface AuthFormProps {
   children: ReactNode;
   isLoginForm: boolean;
-  isCorrect: boolean;
+  isValid: boolean;
   onSubmit: () => any;
+  errorsFallback: ReactNode;
   classNames?: {
     form: string;
   };
@@ -17,7 +18,8 @@ export function AuthForm({
   isLoginForm,
   onSubmit,
   classNames,
-  isCorrect
+  isValid,
+  errorsFallback
 }: AuthFormProps) {
   const labels = {
     title: isLoginForm ? 'Авторизация' : 'Регистрация',
@@ -36,8 +38,9 @@ export function AuthForm({
           {labels.title}
         </h2>
         <div>{children}</div>
+        <p className='text-c-red'>{errorsFallback}</p>
         <Button
-          disabled={!isCorrect}
+          disabled={!isValid}
           type='submit'
           className='mb-[1.04rem] w-full'
         >

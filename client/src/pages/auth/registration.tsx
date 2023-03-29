@@ -3,7 +3,7 @@ import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { RadioGroup, RadioVariant } from '@/components/UI/Radio/RadioGroup';
 import { isAnyFieldEmpty } from '@/helpers/formHelpers';
-import { useRegister } from '@/hooks/api/useAuthAPI';
+import { useRegister } from '@/hooks/api/useRegister';
 import { RegistrationFormFields } from '@/types/Forms';
 import { isCourse, UserType } from '@/types/User';
 import { useCallback, useState } from 'react';
@@ -56,12 +56,22 @@ export default function Registration() {
 
   const { submit, error: APIError } = useRegister();
 
+  const renderFormErrors = () => (
+    <>
+      {errors.passwordConfirm?.type == 'validate' && 'Пароли не совпадают'}
+      {isAnyFieldEmpty<RegistrationFormFields>(errors) &&
+        'Все поля должны быть заполнены!'}
+      {APIError}
+    </>
+  );
+
   return (
     <AuthForm
-      isCorrect={isValid}
+      isValid={isValid}
       classNames={{ form: 'w-[22%]' }}
       onSubmit={handleSubmit(submit)}
       isLoginForm={false}
+      errorsFallback={renderFormErrors()}
     >
       <InputsGroup label='ФИО'>
         <Input
@@ -119,12 +129,6 @@ export default function Registration() {
           type='password'
           placeholder='Повторите пароль'
         />
-        <p className='text-c-red'>
-          {errors.passwordConfirm?.type == 'validate' && 'Пароли не совпадают'}
-          {isAnyFieldEmpty<RegistrationFormFields>(errors) &&
-            'Все поля должны быть заполнены!'}
-          {APIError as string}
-        </p>
       </InputsGroup>
     </AuthForm>
   );

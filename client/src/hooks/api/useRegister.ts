@@ -1,16 +1,16 @@
 import UserAPI from '@/http/UserAPI';
 import { usersActions } from '@/store/slices/userSlice';
+import { UserRegisterDTO } from '@/types/DTO';
 import { RegistrationFormFields } from '@/types/Forms';
 import { isCourse } from '@/types/User';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
-import { UserAuthDTO } from './../../types/User';
 
 export function useRegister() {
   const dispatch = useAppDispatch();
   const [error, setError] = useState('');
 
-  async function register(dto: UserAuthDTO) {
+  async function register(dto: UserRegisterDTO) {
     try {
       const res = await UserAPI.register(dto);
       const { token } = res!;

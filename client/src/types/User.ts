@@ -19,8 +19,6 @@ export enum UserType {
   Teacher
 }
 
-export type UserAuthDTO = (TeacherData | StudentData) & { password: string };
-
 export function isCourse(value: string): value is Course {
   return ['1', '2', '3', '4', '5', '6'].includes(value);
 }

@@ -22,8 +22,9 @@ export const useAuth = () => {
 
   function exit() {
     localStorage.removeItem('token');
-    dispatch(usersActions.fetchUser());
+    dispatch(usersActions.exit());
+    router.push('/auth/login');
   }
 
-  return { isAuth: !!user,exit };
+  return { isAuth: !!user, exit };
 };

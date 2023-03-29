@@ -10,3 +10,8 @@ export interface RegistrationFormFields {
   password: string;
   passwordConfirm: string;
 }
+
+export interface LoginFormFields {
+  email: string;
+  password: string;
+}
