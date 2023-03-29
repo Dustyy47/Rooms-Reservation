@@ -6,7 +6,7 @@ import {
   isStudent,
   StudentData,
   TeacherData,
-  UserAuthData
+  UserAuthDTO
 } from './../types/User';
 
 class UserAPI {
@@ -19,7 +19,7 @@ class UserAPI {
     }
   }
 
-  async register(form: UserAuthData) {
+  async register(form: UserAuthDTO) {
     try {
       let token;
       let data;

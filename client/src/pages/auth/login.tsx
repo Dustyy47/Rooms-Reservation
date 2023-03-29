@@ -1,10 +1,10 @@
 import { AuthForm } from '@/components/Forms/AuthForm';
 import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
-import { useForm } from '@/hooks/useForm';
+import { useForm1 } from '@/hooks/useForm';
 
 export default function Login() {
-  const { change, isCorrect } = useForm(['email', 'password']);
+  const { change, isCorrect } = useForm1(['email', 'password']);
 
   return (
     <AuthForm isCorrect={isCorrect()} onSubmit={() => {}} isLoginForm>

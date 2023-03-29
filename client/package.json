@@ -19,6 +19,7 @@
     "postcss-preset-env": "^8.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.8",
     "react-redux": "^8.0.5",
     "typescript": "4.9.5"
   },

@@ -7,7 +7,7 @@ function initFields(fieldsNames: string[]) {
   }, {});
 }
 
-export function useForm(fieldsNames: string[]) {
+export function useForm1(fieldsNames: string[]) {
   const [fields, setFields] = useState(initFields(fieldsNames));
 
   return {

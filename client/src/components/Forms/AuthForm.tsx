@@ -28,7 +28,8 @@ export function AuthForm({
 
   return (
     <div className='flex min-h-screen w-full items-center justify-center bg-c-grey'>
-      <div
+      <form
+        onSubmit={onSubmit}
         className={`my-[3rem] rounded-common bg-white p-[2.08rem] ${classNames?.form}`}
       >
         <h2 className='mb-[2.08rem] text-center text-[1.8rem]'>
@@ -37,7 +38,7 @@ export function AuthForm({
         <div>{children}</div>
         <Button
           disabled={!isCorrect}
-          onClick={onSubmit}
+          type='submit'
           className='mb-[1.04rem] w-full'
         >
           {labels.submit}
@@ -50,7 +51,7 @@ export function AuthForm({
             {labels.redirectText}
           </Link>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

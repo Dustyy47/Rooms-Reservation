@@ -9,10 +9,21 @@ export interface TeacherData extends UserData {
 }
 
 export interface StudentData extends UserData {
-  course?: string;
+  course?: Course;
 }
 
-export type UserAuthData = (TeacherData | StudentData) & { password: string };
+export type Course = '1' | '2' | '3' | '4' | '5' | '6';
+
+export enum UserType {
+  Student,
+  Teacher
+}
+
+export type UserAuthDTO = (TeacherData | StudentData) & { password: string };
+
+export function isCourse(value: string): value is Course {
+  return ['1', '2', '3', '4', '5', '6'].includes(value);
+}
 
 export function isStudent(user: UserData): user is StudentData {
   return (user as StudentData).course !== undefined;
