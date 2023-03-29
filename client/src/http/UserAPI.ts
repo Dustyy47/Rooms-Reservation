@@ -1,13 +1,10 @@
 import { handleFetchError } from '@/helpers/handleFetchError';
+import { UserRegisterDTO } from '@/types/DTO';
 import jwtDecode from 'jwt-decode';
 import { $authHost } from '.';
+import { UserLoginDTO } from './../types/DTO';
 import { AuthTokenDecoded } from './../types/HTTP';
-import {
-  isStudent,
-  StudentData,
-  TeacherData,
-  UserAuthData
-} from './../types/User';
+import { isStudent, StudentData, TeacherData } from './../types/User';
 
 class UserAPI {
   async fetchUser() {
@@ -19,14 +16,29 @@ class UserAPI {
     }
   }
 
-  async register(form: UserAuthData) {
+  async register(dto: UserRegisterDTO) {
     try {
       let token;
       let data;
       data = await $authHost.post<string>(
-        `/auth/registration/${isStudent(form) ? 'student' : 'teacher'}`,
-        { ...form }
+        `/auth/registration/${isStudent(dto) ? 'student' : 'teacher'}`,
+        { ...dto }
       );
+      token = data.data;
+      return {
+        data: jwtDecode<AuthTokenDecoded>(token),
+        token
+      };
+    } catch (e) {
+      return handleFetchError(e);
+    }
+  }
+
+  async login(dto: UserLoginDTO) {
+    try {
+      let token;
+      let data;
+      data = await $authHost.post<string>(`/auth/login`, { ...dto });
       token = data.data;
       return {
         data: jwtDecode<AuthTokenDecoded>(token),

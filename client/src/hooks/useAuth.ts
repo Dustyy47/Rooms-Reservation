@@ -20,5 +20,11 @@ export const useAuth = () => {
     }
   }, [user]);
 
-  return { isAuth: !!user };
+  function exit() {
+    localStorage.removeItem('token');
+    dispatch(usersActions.exit());
+    router.push('/auth/login');
+  }
+
+  return { isAuth: !!user, exit };
 };

@@ -2,82 +2,98 @@ import { AuthForm } from '@/components/Forms/AuthForm';
 import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { RadioGroup, RadioVariant } from '@/components/UI/Radio/RadioGroup';
-import { useAuthAPI } from '@/hooks/api/useAuthApi';
-import { useForm } from '@/hooks/useForm';
+import { isAnyFieldEmpty } from '@/helpers/formHelpers';
+import { useRegister } from '@/hooks/api/useRegister';
+import { RegistrationFormFields } from '@/types/Forms';
+import { isCourse, UserType } from '@/types/User';
 import { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-const radioVariants: RadioVariant[] = [
+type UserRadioVariant = RadioVariant & { type: UserType };
+
+const radioVariants: UserRadioVariant[] = [
   {
     id: 1,
-    name: 'Сотрудник'
+    name: 'Сотрудник',
+    type: UserType.Teacher
   },
   {
     id: 2,
-    name: 'Студент'
+    name: 'Студент',
+    type: UserType.Student
   }
 ];
 
+function validateSpecialField(value: string, type: UserType): boolean {
+  switch (type) {
+    case UserType.Student:
+      return isCourse(value);
+    case UserType.Teacher:
+      return true;
+  }
+}
+
 export default function Registration() {
-  const [activeVariant, setActiveVariant] = useState<RadioVariant>(
+  const [activeVariant, setActiveVariant] = useState<UserRadioVariant>(
     radioVariants[0]
   );
-  const { change, isCorrect, fields } = useForm([
-    'surname',
-    'name',
-    'patronymic',
-    'email',
-    'phone',
-    'specialField',
-    'password',
-    'passwordConfirm'
-  ]);
-  const { register, error } = useAuthAPI();
 
-  const handleSubmit = () => {
-    register({
-      fullname: `${fields.name} ${fields.name} ${fields.patronymic}`,
-      email: fields.email,
-      phone: fields.phone,
-      speciality:
-        activeVariant.name === 'Сотрудник' ? fields.specialField : undefined,
-      course:
-        activeVariant.name === 'Студент' ? fields.specialField : undefined,
-      password: fields.password
-    });
-  };
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    watch,
+    reset
+  } = useForm<RegistrationFormFields>({ mode: 'onTouched' });
 
   const handleChangeStatus = useCallback((variantId: number) => {
+    reset({ specialField: '' });
     setActiveVariant(
       radioVariants.find((variant) => variant.id === variantId) ||
         radioVariants[0]
     );
   }, []);
 
+  const { submit, error: APIError } = useRegister();
+
+  const renderFormErrors = () => (
+    <>
+      {errors.passwordConfirm?.type == 'validate' && 'Пароли не совпадают'}
+      {isAnyFieldEmpty<RegistrationFormFields>(errors) &&
+        'Все поля должны быть заполнены!'}
+      {APIError}
+    </>
+  );
+
   return (
     <AuthForm
-      isCorrect={isCorrect()}
+      isValid={isValid}
       classNames={{ form: 'w-[22%]' }}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(submit)}
       isLoginForm={false}
+      errorsFallback={renderFormErrors()}
     >
       <InputsGroup label='ФИО'>
         <Input
-          onChange={(v) => change('surname', v)}
+          {...register('surname', { required: true })}
           placeholder='Введите фамилию'
         />
-        <Input onChange={(v) => change('name', v)} placeholder='Введите имя' />
         <Input
-          onChange={(v) => change('patronymic', v)}
+          {...register('name', { required: true })}
+          placeholder='Введите имя'
+        />
+        <Input
+          {...register('patronymic', { required: true })}
           placeholder='Введите отчество'
         />
       </InputsGroup>
       <InputsGroup label='Контактные данные'>
         <Input
-          onChange={(v) => change('email', v)}
+          {...register('email', { required: true })}
           placeholder='Введите почту'
         />
         <Input
-          onChange={(v) => change('phone', v)}
+          {...register('phone', { required: true })}
           placeholder='Введите телефон'
         />
       </InputsGroup>
@@ -89,18 +105,28 @@ export default function Registration() {
           variants={radioVariants}
         ></RadioGroup>
         <Input
-          onChange={(v) => change('specialField', v)}
+          {...register('specialField', {
+            required: true,
+            validate: (val) => validateSpecialField(val, activeVariant.type)
+          })}
           placeholder={activeVariant.name}
         />
       </InputsGroup>
 
       <InputsGroup label='Пароль'>
         <Input
-          onChange={(v) => change('password', v)}
+          {...register('password', {
+            required: true
+          })}
+          type='password'
           placeholder='Введите пароль'
         />
         <Input
-          onChange={(v) => change('passwordConfirm', v)}
+          {...register('passwordConfirm', {
+            required: true,
+            validate: (val) => watch('password') === val
+          })}
+          type='password'
           placeholder='Повторите пароль'
         />
       </InputsGroup>
