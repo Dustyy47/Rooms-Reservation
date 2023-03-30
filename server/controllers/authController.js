@@ -65,16 +65,8 @@ class AuthController {
 
   async login(req, res) {
     try {
-      const { email, password, type } = req.body;
-      let Model;
-      if (type === "teacher") {
-        Model = TeacherModel;
-      } else if (type === "student") {
-        Model = StudentModel;
-      } else
-        return res.status(500).json({ message: "Неверный тип пользователя" });
-
-      const user = await Model.findOne({ email });
+      const { email, password } = req.body;
+      const user = await UserModel.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "Неверный логин или пароль" });
       }
