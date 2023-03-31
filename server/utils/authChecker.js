@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 class AuthChecker {
   tryAuth = (req, res, next) => {
     try {
+      console.log("@AUTH", req.headers.authorization);
       const token = (req.headers.authorization || "").split(" ")[1];
       if (!token) {
         res.status(401).json("Необходимо авторизироваться!");

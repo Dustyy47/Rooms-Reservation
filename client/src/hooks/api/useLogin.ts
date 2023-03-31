@@ -1,6 +1,7 @@
 import UserAPI from '@/http/UserAPI';
 import { usersActions } from '@/store/slices/userSlice';
 import { UserLoginDTO } from '@/types/DTO';
+import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
@@ -15,7 +16,7 @@ export function useLogin() {
     try {
       const res = await UserAPI.login(dto);
       const { token } = res!;
-      localStorage.setItem('token', token);
+      setCookie('auth', token, { sameSite: true });
       dispatch(usersActions.fetchUser());
       router.push('/rooms');
     } catch (e) {

@@ -1,9 +1,11 @@
 import { NavBar } from '@/components/NavBar/NavBar';
+import { $authHost } from '@/http';
 import { wrapper } from '@/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { usersActions } from '@/store/slices/userSlice';
 import '@/styles/globals.css';
 import { Status } from '@/types/HTTP';
+import { getCookie } from 'cookies-next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -30,6 +32,7 @@ export function AuthContainer({
   const { user, loadingUser } = useAppSelector((state) => state.user);
 
   useEffect(() => {
+    $authHost.defaults.headers.Authorization = `Bearer ${getCookie('auth')}`;
     dispatch(usersActions.fetchUser());
   }, []);
 

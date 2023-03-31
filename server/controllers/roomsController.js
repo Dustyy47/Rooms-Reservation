@@ -9,6 +9,7 @@ class RoomsController {
   async getAllRooms(req, res) {
     try {
       const rooms = await RoomModel.find();
+      console.log('@ROOMS',rooms)
       res.json(rooms);
     } catch (e) {
       handleError(res, e);

@@ -12,9 +12,14 @@ import { RootState } from './../index';
 
 export const hydrate = createAction<RootState>(HYDRATE);
 
-const fetchRooms = createAsyncThunk('rooms/get', () => {
-  const rooms = RoomsAPI.fetchRooms();
-  return rooms;
+const fetchRooms = createAsyncThunk('rooms/get', async () => {
+  try {
+    const rooms = await RoomsAPI.fetchRooms();
+    console.log('@ROOMS', rooms);
+    return rooms!;
+  } catch (e) {
+    return [];
+  }
 });
 
 interface RoomsState {
