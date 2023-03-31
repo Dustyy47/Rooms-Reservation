@@ -1,6 +1,7 @@
 import UserAPI from '@/http/UserAPI';
 import { usersActions } from '@/store/slices/userSlice';
 import { UserLoginDTO } from '@/types/DTO';
+import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import { LoginFormFields } from './../../types/Forms';
@@ -8,6 +9,7 @@ import { LoginFormFields } from './../../types/Forms';
 export function useLogin() {
   const dispatch = useAppDispatch();
   const [error, setError] = useState('');
+  const router = useRouter();
 
   async function login(dto: UserLoginDTO) {
     try {
@@ -15,6 +17,7 @@ export function useLogin() {
       const { token } = res!;
       localStorage.setItem('token', token);
       dispatch(usersActions.fetchUser());
+      router.push('/rooms');
     } catch (e) {
       const error = e as Error;
       console.log(error.message);

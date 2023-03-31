@@ -1,4 +1,5 @@
 import UserAPI from '@/http/UserAPI';
+import { Status } from '@/types/HTTP';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UserData } from './../../types/User';
 
@@ -9,10 +10,12 @@ const fetchUser = createAsyncThunk('users/getMe', async () => {
 
 interface UserState {
   user: UserData | null;
+  loadingUser: Status;
 }
 
 const initialState: UserState = {
-  user: null
+  user: null,
+  loadingUser: Status.pending
 };
 
 const userSlice = createSlice({
@@ -24,9 +27,17 @@ const userSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload || null;
-    });
+    builder
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.user = action.payload || null;
+        state.loadingUser = Status.fulfiled;
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.loadingUser = Status.pending;
+      })
+      .addCase(fetchUser.rejected, (state) => {
+        state.loadingUser = Status.rejected;
+      });
   }
 });
 

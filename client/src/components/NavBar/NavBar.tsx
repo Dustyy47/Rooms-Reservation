@@ -11,8 +11,9 @@ export function NavBar() {
   function isNavLinkActive(to: string) {
     return to === router.pathname;
   }
-
   const { exit } = useAuth();
+
+  if (router.pathname.includes('/auth')) return null;
 
   return (
     <div className='h-[100vh] w-[20%] bg-c-grey p-[0.83rem]'>

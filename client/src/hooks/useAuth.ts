@@ -1,30 +1,16 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { usersActions } from '@/store/slices/userSlice';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.user);
+  const { user, loadingUser } = useAppSelector((state) => state.user);
   const router = useRouter();
-
-  useEffect(() => {
-    dispatch(usersActions.fetchUser());
-  }, []);
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/auth/login');
-    } else {
-      router.push('/rooms/');
-    }
-  }, [user]);
 
   function exit() {
     localStorage.removeItem('token');
     dispatch(usersActions.exit());
-    router.push('/auth/login');
   }
 
-  return { isAuth: !!user, exit };
+  return { isAuth: !!user, loadingUser, exit };
 };
