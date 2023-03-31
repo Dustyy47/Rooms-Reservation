@@ -3,12 +3,14 @@ import { usersActions } from '@/store/slices/userSlice';
 import { UserRegisterDTO } from '@/types/DTO';
 import { RegistrationFormFields } from '@/types/Forms';
 import { isCourse } from '@/types/User';
+import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 
 export function useRegister() {
   const dispatch = useAppDispatch();
   const [error, setError] = useState('');
+  const router = useRouter();
 
   async function register(dto: UserRegisterDTO) {
     try {
@@ -16,6 +18,7 @@ export function useRegister() {
       const { token } = res!;
       localStorage.setItem('token', token);
       dispatch(usersActions.fetchUser());
+      router.push('/rooms');
     } catch (e) {
       const error = e as Error;
       console.log(error.message);

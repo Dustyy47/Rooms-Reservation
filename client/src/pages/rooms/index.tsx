@@ -2,6 +2,7 @@ import { RoomPreview } from '@/components/RoomPreview/RoomPreview';
 import Button from '@/components/UI/Button/Button';
 import { Container } from '@/components/UI/Container/Container';
 import { roomsHistoryLinks } from '@/constants/Links';
+import { setAuthHeaderSSR } from '@/helpers/authorization';
 import { wrapper } from '@/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { roomsActions } from '@/store/slices/roomsSlice';
@@ -38,6 +39,8 @@ export default function Rooms() {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
+    console.log('@FETCH_ROOMS');
+    setAuthHeaderSSR(ctx);
     await store.dispatch(roomsActions.fetchRooms());
     return { props: {} };
   }
