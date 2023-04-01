@@ -3,9 +3,9 @@ import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { RadioGroup, RadioVariant } from '@/components/UI/Radio/RadioGroup';
 import { isAnyFieldEmpty } from '@/helpers/formHelpers';
-import { useRegister } from '@/hooks/api/useRegister';
+import { useAuthorize } from '@/hooks/api/useAuthorize';
 import { RegistrationFormFields } from '@/types/Forms';
-import { isCourse, UserType } from '@/types/User';
+import { UserType, isCourse } from '@/types/User';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -54,7 +54,7 @@ export default function Registration() {
     );
   }, []);
 
-  const { submit, error: APIError } = useRegister();
+  const { submitRegister: submit, error: APIError } = useAuthorize();
 
   const renderFormErrors = () => (
     <>

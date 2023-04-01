@@ -2,7 +2,7 @@ import { AuthForm } from '@/components/Forms/AuthForm';
 import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { isAnyFieldEmpty } from '@/helpers/formHelpers';
-import { useLogin } from '@/hooks/api/useLogin';
+import { useAuthorize } from '@/hooks/api/useAuthorize';
 import { LoginFormFields } from '@/types/Forms';
 import { useForm } from 'react-hook-form';
 
@@ -20,7 +20,7 @@ export default function Login() {
     </>
   );
 
-  const { submit } = useLogin();
+  const { submitLogin: submit } = useAuthorize();
 
   return (
     <AuthForm

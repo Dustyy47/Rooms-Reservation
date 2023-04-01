@@ -1,5 +1,5 @@
 export interface RoomData {
-  id: number;
+  _id: number;
   imageHref: string;
   name: string;
   adress: string;
