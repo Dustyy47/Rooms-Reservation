@@ -1,11 +1,10 @@
 import { NavBar } from '@/components/NavBar/NavBar';
-import { $authHost } from '@/http';
+import { setAuthHeader } from '@/helpers/authorization';
 import { wrapper } from '@/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { usersActions } from '@/store/slices/userSlice';
 import '@/styles/globals.css';
 import { Status } from '@/types/HTTP';
-import { getCookie } from 'cookies-next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -21,7 +20,7 @@ export default function App({ Component, ...rest }: AppProps) {
   );
 }
 
-const localRoutes = ['/auth/login', 'auth/registration'];
+const localRoutes = ['/auth/login', '/auth/registration'];
 
 export function AuthContainer({
   Component,
@@ -32,7 +31,7 @@ export function AuthContainer({
   const { user, loadingUser } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    $authHost.defaults.headers.Authorization = `Bearer ${getCookie('auth')}`;
+    setAuthHeader();
     dispatch(usersActions.fetchUser());
   }, []);
 
@@ -42,6 +41,7 @@ export function AuthContainer({
     (loadingUser === Status.rejected || !user) &&
     !localRoutes.includes(router.pathname.split('?')[0])
   ) {
+    console.log('@REDIRECT', loadingUser.toString(), user);
     router.push('auth/login');
   }
 
