@@ -1,6 +1,5 @@
-import { RoomPreview } from '@/components/RoomPreview/RoomPreview';
+import { Calendar } from '@/components/UI/Calendar/Calendar';
 import { Container } from '@/components/UI/Container/Container';
-import { MultipleSelection } from '@/components/UI/MultipleSelection/MultipleSelection';
 import { orderedDates } from '@/constants/Rooms';
 import { useDatePicker } from '@/hooks/useDatePicker';
 import { useRoomHistoryLinks } from '@/hooks/useRoomHistoryLink';
@@ -16,12 +15,13 @@ export default function Room() {
   return (
     <Container title={`Бронирование помещения`} links={links}>
       <>
-        {room && <RoomPreview room={room} />}
-        <MultipleSelection
+        {/* {room && <RoomPreview room={room} />} */}
+        <Calendar></Calendar>
+        {/* <MultipleSelection
           onPick={handlePickDate}
           label='Дата'
           groups={datesSelections}
-        />
+        /> */}
       </>
     </Container>
   );
