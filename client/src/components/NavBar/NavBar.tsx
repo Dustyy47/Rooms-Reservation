@@ -18,7 +18,7 @@ export function NavBar() {
   return (
     <div className='flex h-[100vh] w-[20%] flex-col justify-between bg-c-grey p-[0.83rem]'>
       <div>
-        <div className='mb-[3.95rem] flex h-[4.16rem]  items-center justify-center rounded-common bg-c-black text-white'>
+        <div className='mb-[2.5rem] flex h-[4.16rem]  items-center justify-center rounded-common bg-c-black text-white'>
           СевГУ. Творческий цех
         </div>
         <ul>
@@ -35,7 +35,7 @@ export function NavBar() {
       <div className='justify-self flex h-[10rem] flex-col justify-between  rounded-common bg-c-blueGrey p-[0.83rem]'>
         <div className='flex flex-col'>
           <span>Вы вошли как:</span>
-          <span>{user?.fullname}</span>
+          <span className='font-bold'>{user?.fullname}</span>
         </div>
         <button
           className='w-fit rounded-[0.2rem] border-[1px] border-c-red px-[.5rem] py-[0.33rem] text-c-red text-opacity-100 hover:bg-c-redContrast hover:text-white'
