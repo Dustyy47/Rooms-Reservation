@@ -1,6 +1,7 @@
 import OrderModel, { ORDER_STATUS } from "../models/OrderModel.js";
 import RoomModel from "../models/RoomModel.js";
 import { handleError } from "../utils/handleError.js";
+import { saveImage } from "../utils/images.js";
 
 // TODO ПРОДУМАТЬ СЛУЧАЙ, КОГДА ДВА ЧЕЛОВЕКА СДЕЛАЛИ ЗАКАЗ НА ОДНО И ТО ЖЕ ВРЕМЯ И ПРИ ЭТОМ НИ ОДИН ИЗ ИХ ЗАКАЗОВ ЕЩЁ НЕ БЫЛ ПРИНЯТ!!!
 // TODO ДОБАВИТЬ НЕДОСТУПНЫЕ ДАТЫ (ПРАЗДНИКИ И Т.П)
@@ -9,7 +10,7 @@ class RoomsController {
   async getAllRooms(req, res) {
     try {
       const rooms = await RoomModel.find();
-      console.log('@ROOMS',rooms)
+      console.log("@ROOMS", rooms);
       res.json(rooms);
     } catch (e) {
       handleError(res, e);
@@ -85,6 +86,11 @@ class RoomsController {
   async addRoom(req, res) {
     try {
       const { title, description, adress } = req.body;
+      const { image } = req.files;
+      const imageRes = await saveImage(image, title);
+      if (!imageRes.status) {
+        return res.status(400).json({ message: "Неверный формат файла" });
+      }
       if (!title || !description || !adress) {
         res.status(500).json("Недостаточно данных для создания комнаты");
         return;
@@ -94,7 +100,12 @@ class RoomsController {
         return res
           .status(400)
           .json({ message: "Такая комната уже существует" });
-      const newRoom = await RoomModel.create({ title, description, adress });
+      const newRoom = await RoomModel.create({
+        title,
+        description,
+        adress,
+        image: imageRes.name,
+      });
       res.json(newRoom);
     } catch (e) {
       handleError(res, e);

@@ -17,11 +17,6 @@ export default function Room() {
       <>
         {/* {room && <RoomPreview room={room} />} */}
         <Calendar></Calendar>
-        {/* <MultipleSelection
-          onPick={handlePickDate}
-          label='Дата'
-          groups={datesSelections}
-        /> */}
       </>
     </Container>
   );

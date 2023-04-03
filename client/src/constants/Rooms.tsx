@@ -3,24 +3,24 @@ import { OrderDates, RoomData } from '@/types/Room';
 export const rooms: RoomData[] = [
   {
     _id: 1,
-    imageHref: '/images/glass_room.jpg',
-    name: 'Зеркальный зал',
+    image: '/images/glass_room.jpg',
+    title: 'Зеркальный зал',
     adress: 'Гоголя, 14',
     description:
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   },
   {
     _id: 2,
-    imageHref: '/images/glass_room.jpg',
-    name: 'Зеркальный зал',
+    image: '/images/glass_room.jpg',
+    title: 'Зеркальный зал',
     adress: 'Гоголя, 13',
     description:
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   },
   {
     _id: 3,
-    imageHref: '/images/glass_room.jpg',
-    name: 'Зеркальный зал',
+    image: '/images/glass_room.jpg',
+    title: 'Зеркальный зал',
     adress: 'Гоголя, 12',
     description:
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
