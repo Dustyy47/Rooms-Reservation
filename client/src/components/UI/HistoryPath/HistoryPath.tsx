@@ -14,10 +14,10 @@ export function HistoryPath({ links, className }: HistoryPathProps) {
     >
       <HistoryPathItem link={links[0]} />
       {links.slice(1).map((link, index) => (
-        <>
-          <ArrowIcon key={'arrow--' + index} />
-          <HistoryPathItem key={'path--' + index} link={link} />
-        </>
+        <div key={index} className='flex items-center'>
+          <ArrowIcon />
+          <HistoryPathItem link={link} />
+        </div>
       ))}
     </div>
   );
