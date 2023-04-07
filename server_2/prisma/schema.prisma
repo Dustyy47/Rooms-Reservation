@@ -12,9 +12,10 @@ datasource db {
 }
 
 
-enum UserType {
+enum Roles {
   STUDENT
   TEACHER
+  ADMIN
 }
 
 model User {
@@ -22,9 +23,8 @@ model User {
   email String  @unique
   hash String 
   fullname  String?
-  type UserType @default(STUDENT)
+  role Roles @default(STUDENT)
   
   course String?
   speciality String?
 } 
-
