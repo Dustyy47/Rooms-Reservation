@@ -1,11 +1,27 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from './../prisma/prisma.service';
-import { SignUpStudentDTO, SignUpTeacherDTO } from './dto';
+import {
+  SignInDTO,
+  SignUpDTO,
+  SignUpStudentDTO,
+  SignUpTeacherDTO,
+} from './dto';
+import { JwtPayload } from './types';
 
 @Injectable({})
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private config: ConfigService,
+    private jwt: JwtService,
+  ) {}
 
   async signUpStudent(dto: SignUpStudentDTO) {
     try {
@@ -16,7 +32,7 @@ export class AuthService {
           hash: hashedPassword,
           fullname: dto.fullname,
           course: dto.course,
-          type: 'STUDENT',
+          role: 'STUDENT',
         },
       });
       return student;
@@ -37,7 +53,7 @@ export class AuthService {
           hash: hashedPassword,
           fullname: dto.fullname,
           speciality: dto.speciality,
-          type: 'TEACHER',
+          role: 'TEACHER',
         },
       });
       return teacher;
@@ -49,7 +65,53 @@ export class AuthService {
     }
   }
 
-  signIn() {
-    return 'signed in';
+  async signUpAdmin(dto: SignUpDTO) {
+    try {
+      const hashedPassword = await bcrypt.hash(dto.password, 10);
+      const admin = await this.prisma.user.create({
+        data: {
+          email: dto.email,
+          hash: hashedPassword,
+          fullname: dto.fullname,
+          role: 'ADMIN',
+        },
+      });
+      return admin;
+    } catch (e) {
+      if (e.code === 'P2002') {
+        throw new ConflictException('Credentials taken');
+      }
+      throw e;
+    }
+  }
+
+  async signIn(dto: SignInDTO) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+    if (!user) throw new ForbiddenException('Credentials incorrect');
+
+    const pwMatches = await bcrypt.compare(dto.password, user.hash);
+    if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
+    return this.signToken({
+      id: '' + user.id,
+      email: user.email,
+      role: user.role,
+    });
+  }
+
+  async signToken(payload: JwtPayload): Promise<{ access_token: string }> {
+    const secret = this.config.get('JWT_SECRET');
+
+    const token = await this.jwt.signAsync(payload, {
+      expiresIn: '15m',
+      secret: secret,
+    });
+
+    return {
+      access_token: token,
+    };
   }
 }

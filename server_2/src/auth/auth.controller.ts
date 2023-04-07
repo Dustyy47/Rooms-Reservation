@@ -1,6 +1,19 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDTO, SignUpStudentDTO, SignUpTeacherDTO } from './dto';
+import {
+  SignInDTO,
+  SignUpDTO,
+  SignUpStudentDTO,
+  SignUpTeacherDTO,
+} from './dto';
+import { AdminGuard, JwtGuard } from './guards';
 
 @Controller('auth')
 export class AuthController {
@@ -16,8 +29,15 @@ export class AuthController {
     return this.authService.signUpTeacher(dto);
   }
 
+  @UseGuards(JwtGuard, AdminGuard)
+  @Post('signUp/admin')
+  signUpAdmin(@Body() dto: SignUpDTO) {
+    return this.authService.signUpAdmin(dto);
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Post('signIn')
   signIn(@Body() dto: SignInDTO) {
-    return this.authService.signIn();
+    return this.authService.signIn(dto);
   }
 }
