@@ -28,3 +28,11 @@ model User {
   course String?
   speciality String?
 } 
+
+model Room {
+  id    Int     @id @default(autoincrement())
+  title String @unique
+  adress String
+  description String?
+  image String?
+}
