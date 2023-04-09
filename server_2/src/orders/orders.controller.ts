@@ -1,5 +1,4 @@
 import { Body, Controller, Get, HttpCode, Param, Patch, Post, Query, UseGuards } from '@nestjs/common'
-import { OrderStatus } from '@prisma/client'
 import { User } from 'src/auth/decorators'
 import { AdminGuard, JwtGuard } from 'src/auth/guards'
 import { OrderDTO } from './dto'
@@ -17,9 +16,9 @@ export class OrdersController {
 
     @Get('')
     @UseGuards(AdminGuard)
-    async getOrders(@Query('status') status: OrderStatus) {
+    async getOrders(@Query() dto: StatusDTO) {
         console.log(status)
-        return await this.ordersService.getOrders(status)
+        return await this.ordersService.getOrders(dto.status)
     }
 
     @HttpCode(200)
