@@ -38,7 +38,7 @@ model Room {
 }
 
 enum OrderStatus {
-  FULLFILLED
+  FULFILLED
   REJECTED
   PENDING
 }

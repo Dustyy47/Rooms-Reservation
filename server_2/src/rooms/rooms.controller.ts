@@ -8,6 +8,7 @@ import { RoomsService } from './rooms.service'
 @Controller('rooms')
 export class RoomsController {
     constructor(private roomsService: RoomsService) {}
+
     @Get('')
     async getAll() {
         return await this.roomsService.getAll()
