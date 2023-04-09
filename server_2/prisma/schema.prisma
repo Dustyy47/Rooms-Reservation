@@ -1,7 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 enum Roles {
   STUDENT
   TEACHER
@@ -19,20 +17,39 @@ enum Roles {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  hash String 
-  fullname  String?
-  role Roles @default(STUDENT)
-  
-  course String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  hash     String
+  fullname String?
+  role     Roles   @default(STUDENT)
+
+  course     String?
   speciality String?
-} 
+  Order      Order[]
+}
 
 model Room {
-  id    Int     @id @default(autoincrement())
-  title String @unique
-  adress String
+  id          Int     @id @default(autoincrement())
+  title       String  @unique
+  adress      String
   description String?
-  image String?
+  image       String?
+  Order       Order[]
+}
+
+enum OrderStatus {
+  FULFILLED
+  REJECTED
+  PENDING
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  roomId    Int
+  room      Room        @relation(fields: [roomId], references: [id])
+  start     DateTime
+  end       DateTime
+  orderById Int
+  orderBy   User        @relation(fields: [orderById], references: [id])
+  status    OrderStatus @default(PENDING)
 }
