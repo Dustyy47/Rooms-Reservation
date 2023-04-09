@@ -1,1 +1,1 @@
-export * from './createRoom.dto';
+export * from './createRoom.dto'
