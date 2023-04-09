@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common'
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { OrderStatus } from '@prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { OrderDTO } from './dto'
@@ -36,13 +36,13 @@ export class OrdersService {
                 ],
             },
         })
-
-        return orders?.length > 0
+        console.log(orders?.length === 0)
+        return orders?.length === 0
     }
 
     async createOrder(dto: OrderDTO, userId: number) {
-        if (this.isOrderTimeFree(dto, 'FULFILLED'))
-            throw new ConflictException('Помещение уже забранировано на это время')
+        const isFree = this.isOrderTimeFree(dto, 'FULFILLED')
+        if (!isFree) throw new ConflictException('Помещение уже забронировано на это время')
         try {
             const order = await this.prisma.order.create({
                 data: {
@@ -56,5 +56,36 @@ export class OrdersService {
         } catch (e) {
             return e
         }
+    }
+
+    async getOrders(status?: OrderStatus) {
+        try {
+            return this.prisma.order.findMany({
+                where: { status },
+                select: {
+                    id: true,
+                    start: true,
+                    end: true,
+                    room: true,
+                    orderBy: { select: { id: true, fullname: true, email: true } },
+                    status: true,
+                },
+            })
+        } catch (e) {
+            return e
+        }
+    }
+
+    async changeOrderStatus(orderId: number, status: OrderStatus) {
+        try {
+            await this.prisma.order.update({ where: { id: +orderId }, data: { status } })
+        } catch (e) {
+            if (e.code === 'P2025') {
+                throw new NotFoundException('Заказа с таким id не существует')
+            }
+            console.log(e, e.code)
+            return e
+        }
+        return { statusCode: 200 }
     }
 }
