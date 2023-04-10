@@ -27,4 +27,16 @@ export class RoomsService {
             return e
         }
     }
+    async getRoom(roomId: number) {
+        try {
+            const room = this.prisma.room.findFirst({
+                where: { id: +roomId },
+                include: { Order: { where: { status: 'FULFILLED' } } },
+            })
+            return room
+        } catch (e) {
+            console.log(e, e.code)
+            return e
+        }
+    }
 }
