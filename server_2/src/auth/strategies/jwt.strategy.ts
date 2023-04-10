@@ -20,6 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
                 id: +payload.id,
             },
         })
+        if (!user) return undefined
         delete user.hash
         return user
     }

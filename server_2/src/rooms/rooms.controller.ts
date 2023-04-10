@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
 import { AdminGuard, JwtGuard } from 'src/auth/guards'
 import { CreateRoomDTO } from './dto'
 import { ImageInterceptor } from './interceptors'
@@ -14,10 +14,15 @@ export class RoomsController {
         return await this.roomsService.getAll()
     }
 
-    @Post('create')
+    @Post('')
     @UseGuards(AdminGuard)
     @UseInterceptors(ImageInterceptor)
     async createRoom(@Body() dto: CreateRoomDTO, @UploadedFile() image: { filename: string }) {
         return await this.roomsService.createRoom(dto, image.filename)
+    }
+
+    @Get(':roomId')
+    async getRoom(@Param('roomId') roomId: number) {
+        return await this.roomsService.getRoom(roomId)
     }
 }

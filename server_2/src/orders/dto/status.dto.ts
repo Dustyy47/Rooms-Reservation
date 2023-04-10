@@ -1,7 +1,11 @@
 import { OrderStatus } from '@prisma/client'
-import { IsEnum } from 'class-validator'
+import { IsEnum, IsNumber, IsOptional } from 'class-validator'
 
 export class StatusDTO {
     @IsEnum(OrderStatus)
-    status
+    @IsOptional()
+    status?: OrderStatus
+    @IsNumber()
+    @IsOptional()
+    roomId?: number
 }
