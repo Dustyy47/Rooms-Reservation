@@ -31,7 +31,7 @@ export class RoomsService {
         try {
             const room = this.prisma.room.findFirst({
                 where: { id: +roomId },
-                include: { Order: { where: { status: 'FULFILLED' } } },
+                include: { Order: { where: { status: 'FULFILLED' }, select: { start: true, end: true } } },
             })
             return room
         } catch (e) {
