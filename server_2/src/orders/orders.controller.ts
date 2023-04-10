@@ -17,7 +17,6 @@ export class OrdersController {
     @Get('')
     @UseGuards(AdminGuard)
     async getOrders(@Query() dto: StatusDTO) {
-        console.log(status)
         return await this.ordersService.getOrders(dto.status)
     }
 
