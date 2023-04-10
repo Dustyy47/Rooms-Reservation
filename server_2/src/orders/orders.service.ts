@@ -54,9 +54,9 @@ export class OrdersService {
         const candidate = await this.prisma.order.findFirst({
             where: {
                 roomId: dto.roomId,
-                orderById: userId,
                 start: dto.start,
                 end: dto.end,
+                customerId: userId,
             },
         })
         if (!!candidate) {
@@ -108,7 +108,7 @@ export class OrdersService {
                     start: dto.start,
                     end: dto.end,
                     roomId: dto.roomId,
-                    orderById: userId,
+                    customerId: userId,
                 },
             })
             return order
@@ -122,7 +122,7 @@ export class OrdersService {
             return this.prisma.order.findMany({
                 where: { status: dto.status, roomId: +dto.roomId },
                 include: {
-                    orderBy: {
+                    customer: {
                         select: { id: true, fullname: true, email: true },
                     },
                 },

@@ -49,7 +49,7 @@ model Order {
   room      Room        @relation(fields: [roomId], references: [id])
   start     DateTime
   end       DateTime
-  orderById Int
-  orderBy   User        @relation(fields: [orderById], references: [id])
+  customerId Int 
+  customer   User        @relation(fields: [customerId], references: [id])
   status    OrderStatus @default(PENDING)
 }
