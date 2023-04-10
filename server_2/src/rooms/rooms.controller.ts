@@ -14,7 +14,7 @@ export class RoomsController {
         return await this.roomsService.getAll()
     }
 
-    @Post('create')
+    @Post('')
     @UseGuards(AdminGuard)
     @UseInterceptors(ImageInterceptor)
     async createRoom(@Body() dto: CreateRoomDTO, @UploadedFile() image: { filename: string }) {

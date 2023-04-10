@@ -121,13 +121,10 @@ export class OrdersService {
         try {
             return this.prisma.order.findMany({
                 where: { status: dto.status, roomId: +dto.roomId },
-                select: {
-                    id: true,
-                    start: true,
-                    end: true,
-                    room: true,
-                    orderBy: { select: { id: true, fullname: true, email: true } },
-                    status: true,
+                include: {
+                    orderBy: {
+                        select: { id: true, fullname: true, email: true },
+                    },
                 },
             })
         } catch (e) {
