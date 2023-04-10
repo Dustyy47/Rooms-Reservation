@@ -17,7 +17,4 @@ export class GetOrdersQueryDTO {
     @IsString()
     @IsOptional()
     roomId?: string
-    @IsString()
-    @IsOptional()
-    customerId?: string
 }

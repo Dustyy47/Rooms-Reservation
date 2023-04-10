@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Patch, Post, Query, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common'
 import { User } from 'src/auth/decorators'
 import { AdminGuard, JwtGuard } from 'src/auth/guards'
 import { GetOrdersQueryDTO, OrderDTO, StatusDTO } from './dto'
@@ -13,13 +13,17 @@ export class OrdersController {
         return await this.ordersService.createOrder(dto, userId)
     }
 
+    @Get('me')
+    async getMyOrders(@Query() dto: GetOrdersQueryDTO, @User('id') userId: number) {
+        return await this.ordersService.getMyOrders(dto, userId)
+    }
+
     @Get('')
     @UseGuards(AdminGuard)
     async getOrders(@Query() dto: GetOrdersQueryDTO) {
         return await this.ordersService.getOrders(dto)
     }
 
-    @HttpCode(200)
     @UseGuards(AdminGuard)
     @Patch(':orderId')
     async changeOrderStatus(@Param('orderId') orderId: number, @Query() dto: StatusDTO) {

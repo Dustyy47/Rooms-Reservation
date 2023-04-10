@@ -113,6 +113,24 @@ export class OrdersService {
             })
             return order
         } catch (e) {
+            console.log(e, e.code)
+            if (e.code === 'P2003') {
+                throw new NotFoundException('Комнаты с таким id не существует')
+            }
+            return e
+        }
+    }
+
+    async getMyOrders(dto: GetOrdersQueryDTO, userId: number) {
+        try {
+            console.log(dto)
+            const orders = await this.prisma.order.findMany({
+                where: { status: dto.status, roomId: +dto.roomId || undefined, customerId: +userId },
+                include: { room: true },
+            })
+            return orders
+        } catch (e) {
+            console.log(e)
             return e
         }
     }
@@ -120,7 +138,7 @@ export class OrdersService {
     async getOrders(dto: GetOrdersQueryDTO) {
         try {
             return this.prisma.order.findMany({
-                where: { status: dto.status, roomId: +dto.roomId },
+                where: { status: dto.status, roomId: +dto.roomId || undefined },
                 include: {
                     customer: {
                         select: { id: true, fullname: true, email: true },
