@@ -67,6 +67,7 @@ export class OrdersService {
     async checkOrderTimeCorrect(dto: OrderDTO) {
         const start = new Date(dto.start)
         const end = new Date(dto.end)
+        if (start >= end) throw new BadRequestException('Некорректный интервал времени')
         //TODO Добавить список недоступных дат по типу праздников, мб брать его из бд, пока проверяю только на выходные
         if (start.getDay() in [5, 6]) {
             throw new BadRequestException('Была выбрана недоступная для бронирования дата')
