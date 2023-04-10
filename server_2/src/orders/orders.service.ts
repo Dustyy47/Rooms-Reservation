@@ -2,7 +2,7 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException }
 import { ConfigService } from '@nestjs/config'
 import { OrderStatus } from '@prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { OrderDTO } from './dto'
+import { GetOrdersQueryDTO, OrderDTO } from './dto'
 
 @Injectable()
 export class OrdersService {
@@ -117,10 +117,10 @@ export class OrdersService {
         }
     }
 
-    async getOrders(status?: OrderStatus) {
+    async getOrders(dto: GetOrdersQueryDTO) {
         try {
             return this.prisma.order.findMany({
-                where: { status },
+                where: { status: dto.status, roomId: +dto.roomId },
                 select: {
                     id: true,
                     start: true,
