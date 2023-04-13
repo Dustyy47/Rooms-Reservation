@@ -2,11 +2,11 @@ import { AuthForm } from '@/components/Forms/AuthForm';
 import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { isAnyFieldEmpty } from '@/helpers/formHelpers';
+import { getAuthSSP } from '@/helpers/getAuthSSP';
 import { useAuthorize } from '@/hooks/api/useAuthorize';
 import { roomsActions } from '@/store/slices/roomsSlice';
 import { LoginFormFields } from '@/types/Forms';
 import { useForm } from 'react-hook-form';
-import { getAuthSSP } from '../rooms';
 
 export default function Login() {
   const {
