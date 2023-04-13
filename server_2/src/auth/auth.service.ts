@@ -101,4 +101,19 @@ export class AuthService {
             access_token: token,
         }
     }
+
+    async getMe(userId: number) {
+        try {
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    id: userId,
+                },
+            })
+            delete user.hash
+            return user
+        } catch (e) {
+            console.log(e, e.code)
+            return e
+        }
+    }
 }
