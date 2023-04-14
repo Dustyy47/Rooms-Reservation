@@ -38,8 +38,11 @@ class UserAPI {
     try {
       let token;
       let data;
-      data = await $authHost.post<string>(`/auth/login`, { ...dto });
-      token = data.data;
+      data = await $authHost.post<{ access_token: string }>(`/auth/signIn`, {
+        ...dto
+      });
+      token = data.data.access_token;
+      console.log(token);
       return {
         data: jwtDecode<AuthTokenDecoded>(token),
         token
