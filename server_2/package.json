@@ -9,7 +9,7 @@
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start",
-        "start:dev": "nest start --watch",
+        "start:dev": "concurrently \"nest start --watch\" \"docker compose up\"",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
@@ -27,6 +27,7 @@
         "bcrypt": "^5.1.0",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.0",
+        "concurrently": "^8.0.1",
         "passport": "^0.6.0",
         "passport-jwt": "^4.0.1",
         "reflect-metadata": "^0.1.13",
