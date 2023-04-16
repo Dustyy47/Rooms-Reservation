@@ -14,7 +14,7 @@ export class OrdersController {
     }
 
     @Get('me')
-    async getMyOrders(@Query() dto: GetOrdersQueryDTO, @User('id') userId: number) {
+    async getMyOrders(@Query() dto: GetOrdersQueryDTO, @User('id') userId: string) {
         return await this.ordersService.getMyOrders(dto, userId)
     }
 
@@ -26,7 +26,7 @@ export class OrdersController {
 
     @UseGuards(AdminGuard)
     @Patch(':orderId')
-    async changeOrderStatus(@Param('orderId') orderId: number, @Query() dto: StatusDTO) {
+    async changeOrderStatus(@Param('orderId') orderId: string, @Query() dto: StatusDTO) {
         return await this.ordersService.changeOrderStatus(orderId, dto.status)
     }
 }
