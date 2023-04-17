@@ -27,11 +27,17 @@
       <br>Tailwind
     </td>
     </td>
-<td align="center" width="110" height="90">
+ <td align="center" width="110" height="90">
       <a href="#debabin-stack">
-        <img src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/359/full/expressjslogo.png" width="36" height="36" alt="Express" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/800px-NestJS.svg.png" width="36" height="36" alt="Tailwind" />
       </a>
-      <br>Express
+      <br>Nest JS
+    </td>
+     <td align="center" width="110" height="90">
+      <a href="#debabin-stack">
+        <img src="https://seeklogo.com/images/P/prisma-logo-3805665B69-seeklogo.com.png" width="36" height="36" alt="Tailwind" />
+      </a>
+      <br>Prisma
     </td>
     <td align="center" width="110" height="90">
       <a href="#debabin-stack">
