@@ -15,7 +15,7 @@ export function RoomPreview({ room, className }: RoomProps) {
       className={`flex max-w-[48.9rem] justify-between tablet:flex-col-reverse ${className}`}
     >
       <Image
-        width={300}
+        width={450}
         height={300}
         className='mr-[2.08rem] min-h-[17rem] w-full max-w-[25rem] rounded-common bg-c-blue '
         src={getAPIImageSrc(image)}
