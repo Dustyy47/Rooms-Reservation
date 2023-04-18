@@ -17,14 +17,14 @@ export default function Rooms() {
 
   function redirectToRoom(room: RoomData) {
     dispatch(roomsActions.setActiveRoom(room));
-    router.push(`/rooms/${room._id}`);
+    router.push(`/rooms/${room.id}`);
   }
 
   return (
     <Container links={roomsHistoryLinks} title='Бронирование помещений'>
       {rooms.map((room) => (
         <div
-          key={room._id}
+          key={room.id}
           className='flex max-w-[48.9rem]  flex-col items-end tablet:flex-col-reverse [&+&]:mt-[6.04rem]'
         >
           <RoomPreview room={room} className='mb-[1.6rem] w-full' />
@@ -38,7 +38,6 @@ export default function Rooms() {
 }
 
 export const getServerSideProps = getAuthSSP((store) => async (ctx) => {
-  console.log('@FETCH_ROOMS');
   setAuthHeader(ctx);
   await store.dispatch(roomsActions.fetchRooms());
   return { props: {} };

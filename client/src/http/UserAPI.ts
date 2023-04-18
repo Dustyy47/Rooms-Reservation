@@ -42,7 +42,6 @@ class UserAPI {
         ...dto
       });
       token = data.data.access_token;
-      console.log(token);
       return {
         data: jwtDecode<AuthTokenDecoded>(token),
         token
