@@ -1,5 +1,6 @@
 import { ArrowButton } from '@/components/SVG/ArrowButton';
 import { days, months } from '@/constants/Dates';
+import { getMaxDate } from '@/helpers/timeHelpers';
 import { useState } from 'react';
 import { CalendarDate, CalendarDateType } from './CalendarDate';
 
@@ -9,8 +10,15 @@ export function Calendar() {
 
   function handleChangeDate(incrementV: number) {
     const newDate = new Date(date);
+    const currentDay = new Date();
     newDate.setMonth(newDate.getMonth() + incrementV);
-    console.log(newDate);
+    if (
+      (newDate.getMonth() < currentDay.getMonth() &&
+        newDate.getFullYear() <= currentDay.getFullYear()) ||
+      newDate.getTime() >= getMaxDate(4).getTime()
+    ) {
+      return;
+    }
     setDate(newDate);
   }
 
