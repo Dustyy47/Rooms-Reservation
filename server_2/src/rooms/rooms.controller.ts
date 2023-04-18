@@ -22,7 +22,7 @@ export class RoomsController {
     }
 
     @Get(':roomId')
-    async getRoom(@Param('roomId') roomId: number) {
+    async getRoom(@Param('roomId') roomId: string) {
         return await this.roomsService.getRoom(roomId)
     }
 }

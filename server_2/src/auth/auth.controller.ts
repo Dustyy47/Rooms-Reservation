@@ -32,7 +32,7 @@ export class AuthController {
 
     @UseGuards(JwtGuard)
     @Get('me')
-    async getMe(@User('id') userId: number) {
+    async getMe(@User('id') userId: string) {
         return await this.authService.getMe(userId)
     }
 }
