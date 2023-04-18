@@ -25,4 +25,9 @@ export class RoomsController {
     async getRoom(@Param('roomId') roomId: number) {
         return await this.roomsService.getRoom(roomId)
     }
+
+    @Get(':roomId/orders')
+    async getRoomOrders(@Param('roomId') roomId: number, @Body('date') date: string) {
+        return await this.roomsService.getRoomOrders({ date, roomId: +roomId })
+    }
 }
