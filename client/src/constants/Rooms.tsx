@@ -2,7 +2,7 @@ import { OrderDates, RoomData } from '@/types/Room';
 
 export const rooms: RoomData[] = [
   {
-    _id: 1,
+    id: 1,
     image: '/images/glass_room.jpg',
     title: 'Зеркальный зал',
     adress: 'Гоголя, 14',
@@ -10,7 +10,7 @@ export const rooms: RoomData[] = [
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   },
   {
-    _id: 2,
+    id: 2,
     image: '/images/glass_room.jpg',
     title: 'Зеркальный зал',
     adress: 'Гоголя, 13',
@@ -18,7 +18,7 @@ export const rooms: RoomData[] = [
       'В центре небольшой комнаты стоит письменный стол, покрытый зеленым сукном. На нем стопка книг, листы, исписанные стремительным почерком поэта. '
   },
   {
-    _id: 3,
+    id: 3,
     image: '/images/glass_room.jpg',
     title: 'Зеркальный зал',
     adress: 'Гоголя, 12',

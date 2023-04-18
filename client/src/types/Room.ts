@@ -1,5 +1,5 @@
 export interface RoomData {
-  _id: number;
+  id: number;
   image: string;
   title: string;
   adress: string;

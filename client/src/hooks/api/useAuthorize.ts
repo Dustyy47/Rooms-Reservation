@@ -32,7 +32,7 @@ export function useAuthorize() {
       router.push('/rooms');
     } catch (e) {
       const error = e as Error;
-      console.log(error.message);
+      console.log('@AUTH ERROR', error, error.message);
       setError(error.message);
     }
   }

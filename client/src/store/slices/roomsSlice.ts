@@ -15,7 +15,6 @@ export const hydrate = createAction<RootState>(HYDRATE);
 const fetchRooms = createAsyncThunk('rooms/get', async () => {
   try {
     const rooms = await RoomsAPI.fetchRooms();
-    console.log('@ROOMS', rooms);
     return rooms!;
   } catch (e) {
     return [];

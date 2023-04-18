@@ -3,10 +3,8 @@ import { Input } from '@/components/UI/Input/Input';
 import { InputsGroup } from '@/components/UI/Input/InputsGroup';
 import { isAnyFieldEmpty } from '@/helpers/formHelpers';
 import { useAuthorize } from '@/hooks/api/useAuthorize';
-import { roomsActions } from '@/store/slices/roomsSlice';
 import { LoginFormFields } from '@/types/Forms';
 import { useForm } from 'react-hook-form';
-import { getAuthSSP } from '../rooms';
 
 export default function Login() {
   const {
@@ -48,8 +46,3 @@ export default function Login() {
     </AuthForm>
   );
 }
-
-export const getServerSideProps = getAuthSSP((store) => async (ctx) => {
-  await store.dispatch(roomsActions.fetchRooms());
-  return { props: {} };
-});
