@@ -27,7 +27,6 @@ export function AuthContainer({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    'WORKING USEEFFECT';
     setAuthHeader();
     dispatch(usersActions.fetchUser());
   }, []);

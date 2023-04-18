@@ -1,6 +1,8 @@
+export type CalendarDateType = 'base' | 'active' | 'disabled';
+
 interface CalendarDateProps {
   date: Date | null;
-  type: 'base' | 'active' | 'disabled';
+  type: CalendarDateType;
   onClick: (date: Date) => any;
 }
 

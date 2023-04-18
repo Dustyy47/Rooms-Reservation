@@ -1,7 +1,7 @@
 import { ArrowButton } from '@/components/SVG/ArrowButton';
 import { days, months } from '@/constants/Dates';
 import { useState } from 'react';
-import { CalendarDate } from './CalendarDate';
+import { CalendarDate, CalendarDateType } from './CalendarDate';
 
 export function Calendar() {
   const [date, setDate] = useState(new Date());
@@ -10,28 +10,38 @@ export function Calendar() {
   function handleChangeDate(incrementV: number) {
     const newDate = new Date(date);
     newDate.setMonth(newDate.getMonth() + incrementV);
+    console.log(newDate);
     setDate(newDate);
   }
 
   function getDays() {
-    const firstDay = new Date(date);
-    firstDay.setDate(1);
+    const tempDay = new Date(date);
+    tempDay.setDate(1);
     const days = [];
+    let firstDay = tempDay.getDay();
+    firstDay = firstDay === 0 ? 7 : firstDay;
     for (let i = 1; i < 7; i++) {
-      if (i < firstDay.getDay()) {
+      if (i < firstDay) {
         days.push(null);
       } else break;
     }
-    const firstMonth = firstDay.getMonth();
-    while (firstDay.getMonth() === firstMonth) {
-      days.push(new Date(firstDay));
-      firstDay.setDate(firstDay.getDate() + 1);
+    const firstMonth = tempDay.getMonth();
+    while (tempDay.getMonth() === firstMonth) {
+      days.push(new Date(tempDay));
+      tempDay.setDate(tempDay.getDate() + 1);
     }
     return [...days];
   }
 
   function handlePickDate(date: Date) {
     setActiveDate(date);
+  }
+
+  function getDateType(date: Date | null): CalendarDateType {
+    if (!date) return 'disabled';
+    if ([0, 6].includes(date.getDay())) return 'disabled';
+    if (date?.getTime() == activeDate.getTime()) return 'active';
+    return 'base';
   }
 
   return (
@@ -57,7 +67,7 @@ export function Calendar() {
             onClick={handlePickDate}
             key={index}
             date={el}
-            type={el?.getTime() == activeDate.getTime() ? 'active' : 'base'}
+            type={getDateType(el)}
           ></CalendarDate>
         ))}
       </div>
