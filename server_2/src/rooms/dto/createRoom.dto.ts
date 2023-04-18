@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator'
+import { IsDateString, IsNumber, IsString } from 'class-validator'
 
 export class CreateRoomDTO {
     @IsString()
@@ -7,4 +7,11 @@ export class CreateRoomDTO {
     description?: string
     @IsString()
     adress: string
+}
+
+export class GetRoomOrdersDTO {
+    @IsNumber()
+    roomId: number
+    @IsDateString()
+    date: string
 }

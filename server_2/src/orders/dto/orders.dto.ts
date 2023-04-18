@@ -6,8 +6,8 @@ export class OrderDTO {
     start: Date
     @IsDateString()
     end: Date
-    @IsString()
-    roomId: string
+    @IsNumber()
+    roomId: number
 }
 
 export class GetOrdersQueryDTO {

@@ -102,7 +102,7 @@ export class AuthService {
         }
     }
 
-    async getMe(userId: string) {
+    async getMe(userId: number) {
         try {
             const user = await this.prisma.user.findUnique({
                 where: {
