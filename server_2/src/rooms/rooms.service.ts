@@ -8,7 +8,7 @@ export class RoomsService {
     async getAll() {
         const rooms = await this.prisma.room.findMany()
         return rooms
-    }
+    } //
     async createRoom(dto: CreateRoomDTO, imageName: string) {
         try {
             const room = await this.prisma.room.create({
