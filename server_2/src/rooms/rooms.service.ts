@@ -1,6 +1,6 @@
-import { ConflictException, Injectable } from '@nestjs/common'
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { CreateRoomDTO } from './dto'
+import { CreateRoomDTO, GetRoomOrdersDTO } from './dto'
 
 @Injectable()
 export class RoomsService {
@@ -34,6 +34,33 @@ export class RoomsService {
                 include: { Order: { where: { status: 'FULFILLED' }, select: { start: true, end: true } } },
             })
             return room
+        } catch (e) {
+            console.log('ERROR', e, e.code)
+            return e
+        }
+    }
+
+    async getRoomOrders(dto: GetRoomOrdersDTO) {
+        const start = new Date(dto.date)
+        const end = new Date(dto.date)
+        end.setDate(end.getDate() + 1)
+        if (isNaN(+start) || isNaN(+end)) {
+            throw new BadRequestException('Неверный формат даты')
+        }
+        try {
+            const orders = this.prisma.order.findMany({
+                where: {
+                    roomId: dto.roomId,
+                    status: 'FULFILLED',
+                    start: {
+                        gte: start,
+                        lte: end,
+                    },
+                },
+                select: { start: true, end: true },
+            })
+
+            return orders
         } catch (e) {
             console.log(e, e.code)
             return e
