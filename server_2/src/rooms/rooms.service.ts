@@ -27,10 +27,10 @@ export class RoomsService {
             return e
         }
     }
-    async getRoom(roomId: number) {
+    async getRoom(roomId: string) {
         try {
             const room = this.prisma.room.findFirst({
-                where: { id: +roomId },
+                where: { id: roomId },
                 include: { Order: { where: { status: 'FULFILLED' }, select: { start: true, end: true } } },
             })
             return room

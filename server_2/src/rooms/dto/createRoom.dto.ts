@@ -10,8 +10,8 @@ export class CreateRoomDTO {
 }
 
 export class GetRoomOrdersDTO {
-    @IsNumber()
-    roomId: number
+    @IsString()
+    roomId: string
     @IsDateString()
     date: string
 }

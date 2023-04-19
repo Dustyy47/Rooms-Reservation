@@ -50,7 +50,7 @@ export class OrdersService {
     }
 
     // Кидает ошибку если пользователь уже оставлял идентичную бронь
-    async checkUserOrderDuplicated(dto: OrderDTO, userId: number) {
+    async checkUserOrderDuplicated(dto: OrderDTO, userId: string) {
         const candidate = await this.prisma.order.findFirst({
             where: {
                 roomId: dto.roomId,
@@ -94,7 +94,7 @@ export class OrdersService {
         if (!isFree) throw new ConflictException('Помещение уже забронировано на это время')
     }
 
-    async createOrder(dto: OrderDTO, userId: number) {
+    async createOrder(dto: OrderDTO, userId: string) {
         try {
             await this.checkOrderTimeCorrect(dto)
             await this.checkUserOrderDuplicated(dto, userId)
@@ -121,11 +121,11 @@ export class OrdersService {
         }
     }
 
-    async getMyOrders(dto: GetOrdersQueryDTO, userId: number) {
+    async getMyOrders(dto: GetOrdersQueryDTO, userId: string) {
         try {
             console.log(dto)
             const orders = await this.prisma.order.findMany({
-                where: { status: dto.status, roomId: +dto.roomId || undefined, customerId: +userId },
+                where: { status: dto.status, roomId: dto.roomId || undefined, customerId: userId },
                 include: { room: true },
             })
             return orders
@@ -138,7 +138,7 @@ export class OrdersService {
     async getOrders(dto: GetOrdersQueryDTO) {
         try {
             return this.prisma.order.findMany({
-                where: { status: dto.status, roomId: +dto.roomId || undefined },
+                where: { status: dto.status, roomId: dto.roomId || undefined },
                 include: {
                     customer: {
                         select: { id: true, fullname: true, email: true },
@@ -150,9 +150,9 @@ export class OrdersService {
         }
     }
 
-    async changeOrderStatus(orderId: number, status: OrderStatus) {
+    async changeOrderStatus(orderId: string, status: OrderStatus) {
         try {
-            await this.prisma.order.update({ where: { id: +orderId }, data: { status } })
+            await this.prisma.order.update({ where: { id: orderId }, data: { status } })
         } catch (e) {
             if (e.code === 'P2025') {
                 throw new NotFoundException('Заказа с таким id не существует')
