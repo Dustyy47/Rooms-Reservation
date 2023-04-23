@@ -91,6 +91,18 @@ export class OrdersService {
             throw new BadRequestException('Время бронирования превышает максимальное')
         }
 
+        const minDaysBeforeReservation = +this.config.get('MIN_DAYS_BEFORE_RESERVATION')
+
+        const tempDate = new Date(new Date().toDateString())
+        const newDate = new Date(start.toDateString())
+        if (newDate.getTime() - tempDate.getTime() < 1000 * 3600 * 24 * minDaysBeforeReservation) {
+            throw new BadRequestException(
+                'Слишком мало времени до даты бронирования. Бронь доступна за ' +
+                    minDaysBeforeReservation +
+                    'д. до даты'
+            )
+        }
+
         const isFree = await this.isOrderTimeFree(dto)
         if (!isFree) throw new ConflictException('Помещение уже забронировано на это время')
     }

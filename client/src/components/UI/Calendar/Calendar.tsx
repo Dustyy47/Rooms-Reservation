@@ -4,16 +4,20 @@ import { getMaxDate } from '@/helpers/timeHelpers';
 import { useState } from 'react';
 import { CalendarDate, CalendarDateType } from './CalendarDate';
 
+// TODO Получать эту константу от сервера
+
+const MIN_DAYS_BEFORE_RESERVATION = 2;
+
 interface CalendarProps {
   onPick: (d: Date) => any;
 }
 
 function checkIsDateBeforeCurrent(date: Date) {
-  const tempDate = new Date();
+  const tempDate = new Date(new Date().toDateString());
+  const newDate = new Date(date.toDateString());
   if (
-    tempDate.getMonth() >= date.getMonth() &&
-    tempDate.getFullYear() >= date.getFullYear() &&
-    date.getDate() <= tempDate.getDate() + 1
+    newDate.getTime() - tempDate.getTime() <
+    1000 * 3600 * 24 * MIN_DAYS_BEFORE_RESERVATION
   ) {
     return true;
   }
