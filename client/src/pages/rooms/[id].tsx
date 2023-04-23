@@ -1,7 +1,5 @@
 import { Calendar } from '@/components/UI/Calendar/Calendar';
 import { Container } from '@/components/UI/Container/Container';
-import { orderedDates } from '@/constants/Rooms';
-import { useDatePicker } from '@/hooks/useDatePicker';
 import { useRoomHistoryLinks } from '@/hooks/useRoomHistoryLink';
 import { useAppSelector } from '@/store/hooks';
 
@@ -9,14 +7,17 @@ import { useAppSelector } from '@/store/hooks';
 
 export default function Room() {
   const room = useAppSelector((state) => state.rooms.activeRoom);
-  const { datesSelections, handlePickDate } = useDatePicker(orderedDates);
   const links = useRoomHistoryLinks();
+
+  function handlePickDate(date: Date) {
+    console.log(date);
+  }
 
   return (
     <Container title={`Бронирование помещения`} links={links}>
       <>
         {/* {room && <RoomPreview room={room} />} */}
-        <Calendar></Calendar>
+        <Calendar onPick={handlePickDate}></Calendar>
       </>
     </Container>
   );

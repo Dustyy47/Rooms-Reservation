@@ -1,5 +1,4 @@
-import { IsDateString, IsNumber, IsString } from 'class-validator'
-
+import { IsDateString, IsMongoId, IsString } from 'class-validator'
 export class CreateRoomDTO {
     @IsString()
     title: string
@@ -10,8 +9,13 @@ export class CreateRoomDTO {
 }
 
 export class GetRoomOrdersDTO {
-    @IsString()
+    @IsMongoId()
     roomId: string
     @IsDateString()
     date: string
+}
+
+export class MongoIdDTO {
+    @IsMongoId()
+    id: string
 }

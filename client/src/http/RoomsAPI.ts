@@ -12,6 +12,14 @@ class RoomsAPI {
       return handleFetchError(e);
     }
   }
+
+  async getRoomOrders(id: string) {
+    try {
+      const data = await $authHost.get('/rooms/' + id + '/orders');
+    } catch (e) {
+      return handleFetchError(e);
+    }
+  }
 }
 
 export default new RoomsAPI();

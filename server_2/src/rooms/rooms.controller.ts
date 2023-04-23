@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
 import { AdminGuard, JwtGuard } from 'src/auth/guards'
-import { CreateRoomDTO } from './dto'
+import { CreateRoomDTO, MongoIdDTO } from './dto'
 import { ImageInterceptor } from './interceptors'
 import { RoomsService } from './rooms.service'
 
@@ -22,12 +22,12 @@ export class RoomsController {
     }
 
     @Get(':roomId')
-    async getRoom(@Param('roomId') roomId: string) {
+    async getRoom(@Param('roomId') { id: roomId }: MongoIdDTO) {
         return await this.roomsService.getRoom(roomId)
     }
 
     @Get(':roomId/orders')
-    async getRoomOrders(@Param('roomId') roomId: string, @Body('date') date: string) {
+    async getRoomOrders(@Param('roomId') { id: roomId }: MongoIdDTO, @Body('date') date: string) {
         return await this.roomsService.getRoomOrders({ date, roomId: roomId })
     }
 }

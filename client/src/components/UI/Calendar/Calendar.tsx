@@ -4,7 +4,11 @@ import { getMaxDate } from '@/helpers/timeHelpers';
 import { useState } from 'react';
 import { CalendarDate, CalendarDateType } from './CalendarDate';
 
-export function Calendar() {
+interface CalendarProps{
+  onPick : (d:Date) => any 
+}
+
+export function Calendar({onPick}:CalendarProps) {
   const [date, setDate] = useState(new Date());
   const [activeDate, setActiveDate] = useState(new Date());
 
@@ -43,6 +47,7 @@ export function Calendar() {
 
   function handlePickDate(date: Date) {
     setActiveDate(date);
+    onPick(date);
   }
 
   function getDateType(date: Date | null): CalendarDateType {

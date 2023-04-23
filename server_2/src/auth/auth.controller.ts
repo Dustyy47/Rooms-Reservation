@@ -1,4 +1,5 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common'
+import { MongoIdDTO } from 'src/rooms/dto'
 import { AuthService } from './auth.service'
 import { User } from './decorators'
 import { SignInDTO, SignUpDTO, SignUpStudentDTO, SignUpTeacherDTO } from './dto'
@@ -32,7 +33,7 @@ export class AuthController {
 
     @UseGuards(JwtGuard)
     @Get('me')
-    async getMe(@User('id') userId: string) {
+    async getMe(@User('id') { id: userId }: MongoIdDTO) {
         return await this.authService.getMe(userId)
     }
 }

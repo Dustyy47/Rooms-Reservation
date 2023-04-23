@@ -62,7 +62,7 @@ export class RoomsService {
 
             return orders
         } catch (e) {
-            console.log(e, e.code)
+            console.log('ERROR ROOM ORDERS', e, e.code)
             return e
         }
     }

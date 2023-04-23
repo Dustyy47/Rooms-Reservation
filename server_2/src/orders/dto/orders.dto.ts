@@ -1,12 +1,12 @@
 import { OrderStatus } from '@prisma/client'
-import { IsDateString, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator'
+import { IsDateString, IsEnum, IsMongoId, IsOptional } from 'class-validator'
 
 export class OrderDTO {
     @IsDateString()
     start: Date
     @IsDateString()
     end: Date
-    @IsString()
+    @IsMongoId()
     roomId: string
 }
 
@@ -14,7 +14,7 @@ export class GetOrdersQueryDTO {
     @IsEnum(OrderStatus)
     @IsOptional()
     status?: OrderStatus
-    @IsString()
+    @IsMongoId()
     @IsOptional()
     roomId?: string
 }
