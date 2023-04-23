@@ -44,6 +44,7 @@ export class RoomsService {
         const start = new Date(dto.date)
         const end = new Date(dto.date)
         end.setDate(end.getDate() + 1)
+
         if (isNaN(+start) || isNaN(+end)) {
             throw new BadRequestException('Неверный формат даты')
         }

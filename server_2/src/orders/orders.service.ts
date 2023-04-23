@@ -103,6 +103,7 @@ export class OrdersService {
             throw e
         }
         try {
+            console.log(userId)
             const order = await this.prisma.order.create({
                 data: {
                     start: dto.start,

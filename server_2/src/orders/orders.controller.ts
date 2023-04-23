@@ -10,12 +10,12 @@ import { OrdersService } from './orders.service'
 export class OrdersController {
     constructor(private ordersService: OrdersService) {}
     @Post('')
-    async createOrder(@Body() dto: OrderDTO, @User('id') { id: userId }: MongoIdDTO) {
+    async createOrder(@Body() dto: OrderDTO, @User() { id: userId }: MongoIdDTO) {
         return await this.ordersService.createOrder(dto, userId)
     }
 
     @Get('me')
-    async getMyOrders(@Query() dto: GetOrdersQueryDTO, @User('id') { id: userId }: MongoIdDTO) {
+    async getMyOrders(@Query() dto: GetOrdersQueryDTO, @User() { id: userId }: MongoIdDTO) {
         return await this.ordersService.getMyOrders(dto, userId)
     }
 
@@ -26,8 +26,8 @@ export class OrdersController {
     }
 
     @UseGuards(AdminGuard)
-    @Patch(':orderId')
-    async changeOrderStatus(@Param('orderId') { id: orderId }: MongoIdDTO, @Query() dto: StatusDTO) {
-        return await this.ordersService.changeOrderStatus(orderId, dto.status)
+    @Patch(':id')
+    async changeOrderStatus(@Param() { id }: MongoIdDTO, @Query() dto: StatusDTO) {
+        return await this.ordersService.changeOrderStatus(id, dto.status)
     }
 }

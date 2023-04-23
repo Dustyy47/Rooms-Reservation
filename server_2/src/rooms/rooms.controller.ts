@@ -21,13 +21,13 @@ export class RoomsController {
         return await this.roomsService.createRoom(dto, image.filename)
     }
 
-    @Get(':roomId')
-    async getRoom(@Param('roomId') { id: roomId }: MongoIdDTO) {
+    @Get(':id')
+    async getRoom(@Param() { id: roomId }: MongoIdDTO) {
         return await this.roomsService.getRoom(roomId)
     }
 
-    @Get(':roomId/orders')
-    async getRoomOrders(@Param('roomId') { id: roomId }: MongoIdDTO, @Body('date') date: string) {
+    @Get(':id/orders')
+    async getRoomOrders(@Param() { id: roomId }: MongoIdDTO, @Body('date') date: string) {
         return await this.roomsService.getRoomOrders({ date, roomId: roomId })
     }
 }
