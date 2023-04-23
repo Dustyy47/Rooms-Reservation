@@ -1,16 +1,20 @@
 import { Calendar } from '@/components/UI/Calendar/Calendar';
 import { Container } from '@/components/UI/Container/Container';
 import { useRoomHistoryLinks } from '@/hooks/useRoomHistoryLink';
-import { useAppSelector } from '@/store/hooks';
+import RoomsAPI from '@/http/RoomsAPI';
+import { useRouter } from 'next/router';
 
 // TODO i18n
 
 export default function Room() {
-  const room = useAppSelector((state) => state.rooms.activeRoom);
+  const router = useRouter();
+  const id = router.query.id as string;
+
   const links = useRoomHistoryLinks();
 
-  function handlePickDate(date: Date) {
-    console.log(date);
+  async function handlePickDate(date: Date) {
+    const data = await RoomsAPI.getRoomOrders(id, date);
+    console.log(data);
   }
 
   return (

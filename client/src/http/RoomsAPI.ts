@@ -13,11 +13,14 @@ class RoomsAPI {
     }
   }
 
-  async getRoomOrders(id: string) {
+  async getRoomOrders(id: string, date: Date) {
     try {
-      const data = await $authHost.get('/rooms/' + id + '/orders', {});
+      const path =
+        '/rooms/' + id + '/orders/' + date.toISOString().split('T')[0];
+      const data = await $authHost.get(path);
+      return data;
     } catch (e) {
-      return handleFetchError(e);
+      console.log(e);
     }
   }
 }

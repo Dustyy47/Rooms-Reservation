@@ -69,7 +69,8 @@ export class OrdersService {
         const end = new Date(dto.end)
         if (start >= end) throw new BadRequestException('Некорректный интервал времени')
         //TODO Добавить список недоступных дат по типу праздников, мб брать его из бд, пока проверяю только на выходные
-        if (start.getDay() in [5, 6]) {
+        console.log(start.getDay(), [0, 6].includes(start.getDay()))
+        if ([0, 6].includes(start.getDay())) {
             throw new BadRequestException('Была выбрана недоступная для бронирования дата')
         }
         const { h: startHours, m: startMinutes } = this.getEnvFormattedTime('ORDER_START')
