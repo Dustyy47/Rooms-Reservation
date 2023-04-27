@@ -1,4 +1,5 @@
 import { handleFetchError } from '@/helpers/handleFetchError';
+import { OrderTime } from '@/types/Order';
 import { RoomData } from '@/types/Room';
 import { AxiosError } from 'axios';
 import { $authHost } from '.';
@@ -17,8 +18,8 @@ class RoomsAPI {
     try {
       const path =
         '/rooms/' + id + '/orders/' + date.toISOString().split('T')[0];
-      const data = await $authHost.get(path);
-      return data;
+      const orders = await $authHost.get<OrderTime[]>(path);
+      return orders.data;
     } catch (e) {
       console.log(e);
     }

@@ -1,5 +1,6 @@
 import RoomsAPI from '@/http/RoomsAPI';
 import { Status } from '@/types/HTTP';
+import { OrderTime } from '@/types/Order';
 import {
   createAction,
   createAsyncThunk,
@@ -18,6 +19,19 @@ const fetchRooms = createAsyncThunk('rooms/get', async () => {
     return rooms!;
   } catch (e) {
     return [];
+  }
+});
+
+const fetchOrders = createAsyncThunk<
+  OrderTime[] | undefined,
+  { roomId: string; date: Date }
+>('rooms/getOrders', async (props) => {
+  try {
+    const { roomId, date } = props;
+    const orders = await RoomsAPI.getRoomOrders(roomId, date);
+    return orders;
+  } catch (e) {
+    return undefined;
   }
 });
 
@@ -60,5 +74,5 @@ const roomsSlice = createSlice({
   }
 });
 
-export const roomsActions = { fetchRooms, ...roomsSlice.actions };
+export const roomsActions = { fetchRooms, fetchOrders, ...roomsSlice.actions };
 export const roomReducer = roomsSlice.reducer;
