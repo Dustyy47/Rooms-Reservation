@@ -156,9 +156,12 @@ export function useTimeIntervalPicker(makedOrders: OrderTime[] | null) {
     )
       return null;
 
+    const offset = new Date().getTimezoneOffset() / 60;
+    console.log('OFFSET', offset);
     const dateISO = date.toISOString().split('T')[0];
-    const start = dateISO + getISOTime(startPickedHour, startPickedMinute);
-    const end = dateISO + getISOTime(endPickedHour, endPickedMinute);
+    const start =
+      dateISO + getISOTime(startPickedHour + offset, startPickedMinute);
+    const end = dateISO + getISOTime(endPickedHour + offset, endPickedMinute);
     return {
       start,
       end
