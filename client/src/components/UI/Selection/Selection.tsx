@@ -1,52 +1,18 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRef, useState } from 'react';
 
-// interface ServerResponse{
-//   years: [
-//     {
-//       name:string,
-//       months: [
-//         {
-//           name: string
-//           days: [
-//             {
-//               name:string
-//               hours: [
-//                 {
-//                   start: {
-//                     hours: 11,
-//                     minutes: 0
-//                   },
-//                   end: {
-//                     hours: 15,
-//                     minutes: 25
-//                   },
-//                 },
-//                 {
-//                   start: '16',
-//                   end: '19'
-//                 }
-
-//               ]
-//             }
-//           ]
-//         }
-//       ]
-//     }
-//   ]
-// }
-
+export type SelectionDataType = string | number;
 export interface Selection {
   name: string;
-  data: string[];
+  data: SelectionDataType[];
   placeholder: string;
-  disabled: boolean;
+  disabled?: boolean;
   keyName: string;
 }
 
 interface SelectionProps {
   selection: Selection;
-  onPick: (data: string, keyName: string) => any;
+  onPick: (data: SelectionDataType, keyName: string) => any;
   className?: string;
 }
 
@@ -58,7 +24,7 @@ export function Selection({ selection, onPick, className }: SelectionProps) {
 
   useOutsideClick(listRef, () => setOpen(false), [spanRef]);
 
-  function pickItem(item: string) {
+  function pickItem(item: SelectionDataType) {
     onPick(item, keyName);
     setOpen(!isOpen);
   }
@@ -68,11 +34,13 @@ export function Selection({ selection, onPick, className }: SelectionProps) {
   }
 
   return (
-    <div className={`relative ${className}`}>
+    <div
+      className={`relative flex w-[100%] justify-center [&+&]:border-l-[2px] [&+&]:border-l-c-greyLight ${className}`}
+    >
       <span
-        ref={spanRef}
         onClick={toggle}
-        className={`cursor-pointer  ${
+        ref={spanRef}
+        className={`w-full cursor-pointer text-center  ${
           !disabled ? 'text-c-black' : 'pointer-events-none text-c-grey'
         }`}
       >
@@ -81,14 +49,14 @@ export function Selection({ selection, onPick, className }: SelectionProps) {
       <ul
         ref={listRef}
         className={`${
-          !isOpen ? 'pointer-events-none  bottom-[-5%] opacity-0' : ''
-        } absolute left-[50%] bottom-[200%] flex max-h-[16.6rem] w-[7.08rem] origin-bottom  translate-x-[-50%] flex-col-reverse items-center overflow-auto rounded-common bg-c-grey p-[0.83rem]`}
+          !isOpen ? 'pointer-events-none  bottom-[-5%] opacity-0' : 'z-10'
+        } absolute left-[50%] top-[200%] flex max-h-[16.6rem] w-[7.08rem] origin-bottom  translate-x-[-50%] flex-col items-center overflow-auto rounded-common bg-c-grey p-[0.83rem]`}
       >
         {data?.map((item) => (
           <li
             onClick={() => pickItem(item)}
             key={item}
-            className='flex min-h-[2.25rem] w-full cursor-pointer items-center justify-center rounded-common border-b-c-greyUltraLight hover:bg-c-blueGrey [&+&]:border-b-[2px]'
+            className='flex min-h-[2.25rem] w-full cursor-pointer items-center justify-center rounded-common border-t-c-greyUltraLight hover:bg-c-blueGrey [&+&]:border-t-[2px]'
           >
             {item}
           </li>

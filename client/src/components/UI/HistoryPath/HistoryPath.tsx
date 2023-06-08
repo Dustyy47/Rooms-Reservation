@@ -3,11 +3,12 @@ import { LinkData } from '@/types/Link';
 import { HistoryPathItem } from './HistoryPathItem';
 
 interface HistoryPathProps {
-  links: LinkData[];
+  links: LinkData[] | null;
   className?: string;
 }
 
 export function HistoryPath({ links, className }: HistoryPathProps) {
+  if (links === null) return null;
   return (
     <div
       className={`flex [&_*]:fill-c-grey [&_path]:fill-c-grey  [&_svg]:w-[1rem] ${className}`}

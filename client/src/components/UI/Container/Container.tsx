@@ -4,7 +4,7 @@ import { HistoryPath } from '../HistoryPath/HistoryPath';
 interface ContainerProps {
   title: string;
   children: React.ReactNode;
-  links: LinkData[];
+  links: LinkData[] | null;
 }
 
 export function Container({ title, children, links }: ContainerProps) {

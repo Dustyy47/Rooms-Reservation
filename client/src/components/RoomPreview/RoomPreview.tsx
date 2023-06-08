@@ -1,6 +1,5 @@
-import { getAPIImageSrc } from '@/helpers/APIImageSrc';
 import { RoomData } from '@/types/Room';
-import Image from 'next/image';
+import { RoomImage } from '../RoomImage/RoomImage';
 import { LocationIcon } from '../SVG/Location';
 
 interface RoomProps {
@@ -14,15 +13,11 @@ export function RoomPreview({ room, className }: RoomProps) {
     <div
       className={`flex max-w-[48.9rem] justify-between tablet:flex-col-reverse ${className}`}
     >
-      <Image
-        width={450}
-        height={300}
-        className='mr-[2.08rem] min-h-[17rem] w-full max-w-[25rem] rounded-common bg-c-blue '
-        src={getAPIImageSrc(image)}
-        alt=''
-      />
+      <div>
+        <RoomImage image={image} />
+      </div>
       <div className='flex w-[20.8rem] flex-col tablet:w-[25rem]'>
-        <h2 className='mb-[1.25rem] bg-c-grey py-[0.7rem] px-[1.25rem]'>
+        <h2 className='mb-[1.25rem] bg-c-grey px-[1.25rem] py-[0.7rem]'>
           {title}
         </h2>
         <div className='mb-[0.83rem] flex'>

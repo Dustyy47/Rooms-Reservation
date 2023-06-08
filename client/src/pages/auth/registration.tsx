@@ -9,9 +9,9 @@ import { UserType, isCourse } from '@/types/User';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-type UserRadioVariant = RadioVariant & { type: UserType };
+export type UserRadioVariant = RadioVariant & { type: UserType };
 
-const radioVariants: UserRadioVariant[] = [
+export const radioVariants: UserRadioVariant[] = [
   {
     id: 1,
     name: 'Сотрудник',
@@ -24,7 +24,7 @@ const radioVariants: UserRadioVariant[] = [
   }
 ];
 
-function validateSpecialField(value: string, type: UserType): boolean {
+export function validateSpecialField(value: string, type: UserType): boolean {
   switch (type) {
     case UserType.Student:
       return isCourse(value);

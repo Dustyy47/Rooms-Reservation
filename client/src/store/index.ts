@@ -1,13 +1,15 @@
 import { AnyAction, ThunkMiddleware, configureStore } from '@reduxjs/toolkit';
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import { createWrapper } from 'next-redux-wrapper';
+import { ordersReducer } from './slices/ordersSlice';
 import { roomReducer } from './slices/roomsSlice';
 import { usersReducer } from './slices/userSlice';
 
 const store = configureStore({
   reducer: {
     rooms: roomReducer,
-    user: usersReducer
+    user: usersReducer,
+    orders: ordersReducer
   }
 });
 

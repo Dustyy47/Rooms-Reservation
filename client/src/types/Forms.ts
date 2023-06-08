@@ -11,6 +11,14 @@ export interface RegistrationFormFields {
   passwordConfirm: string;
 }
 
+export interface MakeOrderFormFields {
+  surname: string;
+  name: string;
+  patronymic: string;
+  phone: string;
+  specialField: Course | string;
+}
+
 export interface LoginFormFields {
   email: string;
   password: string;

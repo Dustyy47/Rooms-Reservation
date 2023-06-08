@@ -28,9 +28,11 @@ export default function Rooms() {
           className='flex max-w-[48.9rem]  flex-col items-end tablet:flex-col-reverse [&+&]:mt-[6.04rem]'
         >
           <RoomPreview room={room} className='mb-[1.6rem] w-full' />
-          <Button className='' onClick={() => redirectToRoom(room)}>
-            Посмотреть
-          </Button>
+          <div className='w-[12.5rem]'>
+            <Button className='' onClick={() => redirectToRoom(room)}>
+              Посмотреть
+            </Button>
+          </div>
         </div>
       ))}
     </Container>

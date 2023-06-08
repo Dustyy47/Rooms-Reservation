@@ -22,6 +22,18 @@ const fetchRooms = createAsyncThunk('rooms/get', async () => {
   }
 });
 
+const fetchActiveRoom = createAsyncThunk(
+  'rooms/getActive',
+  async (id: string) => {
+    try {
+      const room = await RoomsAPI.getRoom(id);
+      return room;
+    } catch (e) {
+      return undefined;
+    }
+  }
+);
+
 const fetchOrders = createAsyncThunk<
   OrderTime[] | undefined,
   { roomId: string; date: Date }
@@ -39,12 +51,14 @@ interface RoomsState {
   roomsStatus: Status;
   rooms: RoomData[];
   activeRoom: RoomData | null;
+  activeRoomLoading: Status;
 }
 
 const initialState: RoomsState = {
   roomsStatus: Status.pending,
   rooms: [],
-  activeRoom: null
+  activeRoom: null,
+  activeRoomLoading: Status.pending
 };
 
 const roomsSlice = createSlice({
@@ -60,6 +74,7 @@ const roomsSlice = createSlice({
       .addCase(hydrate, (state, action) => {
         state.rooms = action.payload.rooms.rooms;
         state.activeRoom = action.payload.rooms.activeRoom;
+        state.activeRoomLoading = action.payload.rooms.activeRoomLoading;
       })
       .addCase(fetchRooms.pending, (state) => {
         state.roomsStatus = Status.pending;
@@ -69,10 +84,23 @@ const roomsSlice = createSlice({
       })
       .addCase(fetchRooms.fulfilled, (state, action) => {
         state.roomsStatus = Status.fulfiled;
+        state.activeRoomLoading = Status.fulfiled;
         state.rooms = action.payload;
+      })
+      .addCase(fetchActiveRoom.fulfilled, (state, action) => {
+        state.activeRoom = action.payload as RoomData;
+        state.activeRoomLoading = Status.fulfiled;
+      })
+      .addCase(fetchActiveRoom.pending, (state) => {
+        state.activeRoomLoading = Status.pending;
       });
   }
 });
 
-export const roomsActions = { fetchRooms, fetchOrders, ...roomsSlice.actions };
+export const roomsActions = {
+  fetchRooms,
+  fetchOrders,
+  fetchActiveRoom,
+  ...roomsSlice.actions
+};
 export const roomReducer = roomsSlice.reducer;
