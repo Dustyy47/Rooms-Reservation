@@ -10,7 +10,7 @@ export function RoomImage({ image }: RoomImageProps) {
     <Image
       width={450}
       height={300}
-      className='min-h-[17rem] w-full max-w-[25rem] rounded-common bg-c-blue '
+      className='min-h-[17rem] w-full  rounded-common bg-c-blue '
       src={getAPIImageSrc(image)}
       alt=''
     />

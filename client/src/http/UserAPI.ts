@@ -10,6 +10,7 @@ class UserAPI {
   async fetchUser() {
     try {
       const data = await $authHost.get<StudentData | TeacherData>('/auth/me');
+      console.log('DATA ', data);
       return data.data;
     } catch (e) {
       return handleFetchError(e);
@@ -21,13 +22,13 @@ class UserAPI {
       let token;
       let data;
       data = await $authHost.post<string>(
-        `/auth/registration/${isStudent(dto) ? 'student' : 'teacher'}`,
+        `/auth/signUp/${isStudent(dto) ? 'student' : 'teacher'}`,
         { ...dto }
       );
       token = data.data;
+      console.log(data);
       return {
-        data: jwtDecode<AuthTokenDecoded>(token),
-        token
+        data: data.data
       };
     } catch (e) {
       return handleFetchError(e);

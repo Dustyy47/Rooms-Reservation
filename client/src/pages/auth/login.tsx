@@ -34,12 +34,14 @@ export default function Login() {
         <Input
           {...register('email', { required: true })}
           placeholder='Введите почту'
+          type='email'
         />
       </InputsGroup>
       <InputsGroup label='Пароль'>
         <Input
           {...register('password', { required: true })}
           placeholder='Введите пароль'
+          type='password'
         />
       </InputsGroup>
       {}

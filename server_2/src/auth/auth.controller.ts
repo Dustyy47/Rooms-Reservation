@@ -34,6 +34,7 @@ export class AuthController {
     @UseGuards(JwtGuard)
     @Get('me')
     async getMe(@User('id') { id: userId }: MongoIdDTO) {
+        console.log(userId)
         return await this.authService.getMe(userId)
     }
 }

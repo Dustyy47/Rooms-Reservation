@@ -21,15 +21,17 @@ export function useAuthorize() {
     try {
       let res;
       if (mode === 'login') {
+        console.log(dto)
         res = await UserAPI.login(dto as UserLoginDTO);
+        const { token } = res!;
+        setCookie('auth', token, { sameSite: true });
+        setAuthHeader();
+        dispatch(usersActions.fetchUser());
+        router.push('/rooms');
       } else {
         res = await UserAPI.register(dto as UserRegisterDTO);
+        router.push('/login');
       }
-      const { token } = res!;
-      setCookie('auth', token, { sameSite: true });
-      setAuthHeader();
-      dispatch(usersActions.fetchUser());
-      router.push('/rooms');
     } catch (e) {
       const error = e as Error;
       console.log('@AUTH ERROR', error, error.message);

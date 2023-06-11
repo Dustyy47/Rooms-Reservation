@@ -15,12 +15,14 @@ export const radioVariants: UserRadioVariant[] = [
   {
     id: 1,
     name: 'Сотрудник',
-    type: UserType.Teacher
+    type: UserType.Teacher,
+    placeholder: 'Должность'
   },
   {
     id: 2,
     name: 'Студент',
-    type: UserType.Student
+    type: UserType.Student,
+    placeholder: 'Курс'
   }
 ];
 
@@ -109,7 +111,7 @@ export default function Registration() {
             required: true,
             validate: (val) => validateSpecialField(val, activeVariant.type)
           })}
-          placeholder={activeVariant.name}
+          placeholder={activeVariant.placeholder}
         />
       </InputsGroup>
 

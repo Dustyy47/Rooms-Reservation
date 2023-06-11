@@ -13,7 +13,7 @@ export function RoomPreview({ room, className }: RoomProps) {
     <div
       className={`flex max-w-[48.9rem] justify-between tablet:flex-col-reverse ${className}`}
     >
-      <div>
+      <div className='max-w-[25rem]'>
         <RoomImage image={image} />
       </div>
       <div className='flex w-[20.8rem] flex-col tablet:w-[25rem]'>

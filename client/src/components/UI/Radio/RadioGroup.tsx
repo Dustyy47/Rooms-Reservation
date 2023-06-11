@@ -3,6 +3,7 @@ import { RadioButton } from './RadioButton';
 export interface RadioVariant {
   id: number;
   name: string;
+  placeholder?: string;
 }
 
 interface RadioGroupProps {

@@ -6,7 +6,7 @@ import { NavLink } from './NavLink';
 
 export function NavBar() {
   const router = useRouter();
-  const { user } = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.user);
 
   function isNavLinkActive(to: string) {
     return to === router.pathname;
